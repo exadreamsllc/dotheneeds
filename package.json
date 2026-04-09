@@ -1,0 +1,18 @@
+{
+  "name": "fenceriq-test-suite",
+  "version": "1.0.0",
+  "description": "FencerIQ v4 — Automated End-to-End Test Suite",
+  "main": "test.js",
+  "type": "module",
+  "scripts": {
+    "test": "node test.js",
+    "test:unit": "node test.js --only unit",
+    "test:db": "node test.js --only db",
+    "test:api": "node test.js --only api",
+    "test:regression": "node test.js --only regression",
+    "test:workflows": "node test.js --only workflows"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.0"
+  }
+}

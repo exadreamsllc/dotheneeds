@@ -1,0 +1,26 @@
+name = "dotheneeds-api"
+main = "worker/index.js"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "production"
+POLICY_VERSION = "v1.0-2026"
+PLATFORM_NAME = "DoTheNeeds"
+COMPANY_NAME = "EXADreams LLC"
+
+# Secrets — set via: wrangler secret put SUPABASE_URL
+# Never put real secrets in wrangler.toml
+# Required secrets to configure:
+#   SUPABASE_URL
+#   SUPABASE_ANON_KEY
+#   SUPABASE_SERVICE_KEY
+#   RESEND_API_KEY
+#   CLAUDE_API_KEY
+
+[[routes]]
+pattern = "dotheneeds.com/api/*"
+zone_name = "dotheneeds.com"
+
+[site]
+bucket = "./public"

@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Do The Needs — Declare. Commit. Move.</title>
+<meta name="description" content="Not a place to complain. A place to declare what you want to change — and what you will do about it. Every voice timestamped and hashed.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & TOKENS ─────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent;}
+:root{
+  --cream:#FAF5EC;
+  --cream2:#F3E9D5;
+  --cream3:#EAD9BF;
+  --paper:#FFFDF8;
+  --terra:#A8481E;
+  --terra2:#C85A2A;
+  --terra3:#7A3010;
+  --amber:#C97D3A;
+  --amber2:#E8A050;
+  --amber3:#F5D4A0;
+  --brown:#241408;
+  --brown2:#4A2C10;
+  --brown3:#7A5530;
+  --brown4:#A88060;
+  --sage:#506840;
+  --sage2:#7A9860;
+  --sage3:#D4E8C8;
+  --sky:#2A5878;
+  --doer-bg:#EBF5E8;--doer:#2E6828;--doer-border:#B8D8B0;
+  --voice-bg:#F5F0E4;--voice:#7A5830;--voice-border:#D8C890;
+  --danger:#8C1A1A;--danger-bg:#FDF0EE;--danger-border:#E8B8B0;
+  --warn:#7A5010;--warn-bg:#FDF6EB;--warn-border:#E0C880;
+}
+body{background:var(--cream);font-family:'Lora',Georgia,serif;color:var(--brown);overflow-x:hidden;line-height:1.7;}
+/* Paper grain */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");}
+
+/* ── TICKER ─────────────────────────────────────── */
+.ticker{background:var(--brown);padding:.45rem 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-block;animation:tick 60s linear infinite;padding-left:100%;}
+@keyframes tick{to{transform:translateX(-100%);}}
+.t-sep{color:var(--amber2);margin:0 1rem;}
+.t-lbl{font-family:'Caveat',cursive;font-size:.95rem;color:var(--amber3);margin-right:.5rem;}
+.t-item{font-family:'Lora',serif;font-size:.75rem;font-style:italic;color:rgba(255,255,255,.7);}
+
+/* ── NAV ─────────────────────────────────────────── */
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2.5rem;background:var(--paper);border-bottom:1px solid var(--cream2);position:sticky;top:0;z-index:100;}
+.logo{font-family:'Caveat',cursive;font-size:1.7rem;font-weight:700;color:var(--terra);letter-spacing:-.5px;text-decoration:none;}
+.logo span{color:var(--brown);}
+.nav-r{display:flex;align-items:center;gap:1.8rem;}
+.nav-link{font-size:.82rem;color:var(--brown3);text-decoration:none;transition:color .2s;}
+.nav-link:hover{color:var(--terra);}
+.nav-return{font-size:.78rem;color:var(--terra);border-bottom:1px dashed var(--terra);cursor:pointer;font-style:italic;background:none;border-top:none;border-left:none;border-right:none;padding:0;font-family:'Lora',serif;}
+.nav-cta{font-size:.82rem;background:var(--terra);color:white;padding:.45rem 1.1rem;border-radius:8px;text-decoration:none;transition:background .2s;}
+.nav-cta:hover{background:var(--terra3);}
+
+/* ── MANIFESTO STRIP ────────────────────────────── */
+.manifesto-strip{background:var(--brown);padding:1rem 2rem;text-align:center;}
+.manifesto-strip p{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(.85rem,2vw,1rem);color:rgba(255,255,255,.75);max-width:700px;margin:0 auto;}
+.manifesto-strip strong{color:var(--amber3);font-style:normal;}
+
+/* ── HERO ────────────────────────────────────────── */
+.hero{max-width:900px;margin:0 auto;padding:5rem 2rem 3rem;text-align:center;position:relative;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;}
+.hero>*{position:relative;z-index:1;}
+.hero-kicker{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--amber);margin-bottom:1.2rem;display:block;letter-spacing:.02em;}
+.hero-q{font-family:'Playfair Display',serif;font-weight:700;font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.1;color:var(--brown);margin-bottom:1rem;}
+.hero-q em{font-style:italic;color:var(--terra);}
+.hero-sub{font-size:1.05rem;color:var(--brown3);line-height:1.85;max-width:560px;margin:0 auto 2.5rem;}
+/* two questions callout */
+.pre-filter{display:flex;gap:1rem;max-width:640px;margin:0 auto 2.5rem;text-align:left;flex-wrap:wrap;}
+.pf-item{flex:1;min-width:240px;background:var(--paper);border:1px solid var(--cream2);border-radius:12px;padding:1rem 1.2rem;border-left:3px solid var(--amber);}
+.pf-n{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--amber);display:block;margin-bottom:.25rem;}
+.pf-q{font-family:'Playfair Display',serif;font-size:.88rem;color:var(--brown);line-height:1.5;font-style:italic;}
+.pf-note{font-size:.72rem;color:var(--brown4);margin-top:.35rem;display:block;}
+
+/* ── FORM SECTION ───────────────────────────────── */
+.form-wrap{max-width:680px;margin:0 auto 5rem;padding:0 1.5rem;}
+.form-card{background:var(--paper);border-radius:20px;padding:2.8rem;position:relative;overflow:hidden;
+  box-shadow:0 1px 0 var(--cream2),0 6px 40px rgba(36,20,8,.07),0 0 0 1px rgba(168,72,30,.08);}
+.form-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--terra),var(--amber2),var(--sage2));}
+/* step dots */
+.steps{display:flex;align-items:center;gap:0;margin-bottom:2rem;}
+.step-dot{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:500;transition:all .3s;flex-shrink:0;border:1.5px solid var(--cream3);}
+.step-dot.active{background:var(--terra);color:white;border-color:var(--terra);}
+.step-dot.done{background:var(--sage);color:white;border-color:var(--sage);}
+.step-dot.idle{background:var(--cream);color:var(--brown4);border-color:var(--cream3);}
+.step-line{flex:1;height:2px;background:var(--cream3);}
+.step-line.done{background:var(--sage);}
+/* form labels and inputs */
+.fc-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--brown);margin-bottom:.3rem;}
+.fc-sub{font-size:.85rem;color:var(--brown4);font-style:italic;margin-bottom:1.8rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:.9rem;margin-bottom:.9rem;}
+.fg{display:flex;flex-direction:column;gap:.3rem;margin-bottom:.9rem;}
+.fg label{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:var(--brown4);font-weight:500;}
+.fg input,.fg select,.fg textarea{background:var(--cream);border:1.5px solid var(--cream2);border-radius:9px;padding:.65rem .9rem;font-family:'Lora',serif;font-size:.92rem;color:var(--brown);outline:none;transition:border-color .2s,box-shadow .2s;width:100%;}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--brown4);opacity:.6;font-style:italic;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--amber2);box-shadow:0 0 0 3px rgba(201,125,58,.12);}
+.fg textarea{min-height:115px;resize:vertical;line-height:1.75;}
+.the-q{font-family:'Playfair Display',serif;font-style:italic;font-size:1rem;color:var(--brown);margin-bottom:.45rem;}
+.char-c{text-align:right;font-size:.7rem;color:var(--brown4);margin-top:-.5rem;margin-bottom:.7rem;}
+/* checkboxes */
+.ck-row{display:flex;align-items:flex-start;gap:.8rem;padding:.85rem 1rem;background:var(--cream);border-radius:11px;margin-bottom:.65rem;cursor:pointer;border:1.5px solid transparent;transition:border-color .2s;}
+.ck-row:hover{border-color:var(--amber3);}
+.ck-row input[type=checkbox]{width:16px;height:16px;flex-shrink:0;accent-color:var(--terra);margin-top:3px;cursor:pointer;}
+.ck-row .ckl{font-size:.84rem;color:var(--brown2);line-height:1.5;}
+.ck-row .ckl strong{display:block;color:var(--brown);margin-bottom:.1rem;font-weight:500;}
+.ck-row .ckl em{font-size:.74rem;color:var(--brown4);}
+.ck-donate{border:1.5px solid var(--amber3);background:#FBF4E8;}
+/* mod alerts */
+.mod{border-radius:11px;padding:.85rem 1rem;margin-bottom:.8rem;display:none;font-size:.82rem;line-height:1.55;}
+.mod strong{display:block;margin-bottom:.2rem;font-size:.84rem;}
+.mod.hard{background:var(--danger-bg);border:1.5px solid var(--danger-border);color:var(--danger);}
+.mod.soft{background:var(--warn-bg);border:1.5px solid var(--warn-border);color:var(--warn);}
+/* buttons */
+.btn-main{width:100%;padding:.95rem 1rem;background:var(--terra);color:white;border:none;border-radius:12px;font-family:'Playfair Display',serif;font-size:1.08rem;cursor:pointer;transition:all .2s;margin-top:.4rem;letter-spacing:.01em;}
+.btn-main:hover:not(:disabled){background:var(--terra3);transform:translateY(-1px);}
+.btn-main:active:not(:disabled){transform:none;}
+.btn-main:disabled{opacity:.5;cursor:not-allowed;}
+.btn-back{width:100%;padding:.75rem;background:transparent;color:var(--terra);border:1.5px solid var(--terra);border-radius:12px;font-family:'Lora',serif;font-size:.9rem;cursor:pointer;transition:all .2s;margin-top:.6rem;}
+.btn-back:hover{background:var(--cream);}
+.form-foot{text-align:center;font-size:.73rem;color:var(--brown4);margin-top:.8rem;font-style:italic;line-height:1.5;}
+.spin{display:none;width:15px;height:15px;border:2px solid rgba(255,255,255,.3);border-top-color:white;border-radius:50%;animation:spin .65s linear infinite;vertical-align:middle;margin-right:.5rem;}
+@keyframes spin{to{transform:rotate(360deg);}}
+/* step 2 */
+.pivot-h{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--brown);margin-bottom:.25rem;line-height:1.25;}
+.pivot-h em{font-style:italic;color:var(--terra);}
+.pivot-sub{font-size:.9rem;color:var(--brown3);font-style:italic;margin-bottom:1.5rem;line-height:1.5;}
+.contrib-grid{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1.2rem;}
+.cb-opt{padding:.85rem 1rem;border:1.5px solid var(--cream2);border-radius:12px;background:var(--cream);cursor:pointer;text-align:left;transition:all .2s;font-family:'Lora',serif;}
+.cb-opt:hover{border-color:var(--amber2);background:var(--paper);}
+.cb-opt.sel{border-color:var(--terra);background:#FFF3EE;}
+.cb-opt.sel-voice{border-color:var(--voice);background:var(--voice-bg);}
+.cb-icon{font-size:1.1rem;display:block;margin-bottom:.3rem;}
+.cb-lbl{font-size:.82rem;font-weight:500;color:var(--brown);display:block;}
+.cb-sub{font-size:.7rem;color:var(--brown4);font-style:italic;display:block;margin-top:.1rem;}
+
+/* ── CERTIFICATE ─────────────────────────────────── */
+#cert-view{display:none;}
+.cert-intro{text-align:center;margin-bottom:1.5rem;}
+.cert-check{font-family:'Caveat',cursive;font-size:3rem;color:var(--terra);display:block;margin-bottom:.5rem;}
+.cert-intro h3{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--brown);margin-bottom:.3rem;}
+.cert-intro p{font-size:.85rem;color:var(--brown4);font-style:italic;line-height:1.6;}
+.cert-doc{background:var(--cream);border:1.5px solid var(--amber3);border-radius:16px;padding:2rem;position:relative;overflow:hidden;}
+.cert-doc::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(168,72,30,.018) 12px,rgba(168,72,30,.018) 13px);}
+.cert-wm{font-family:'Caveat',cursive;font-size:8rem;color:var(--terra);opacity:.04;position:absolute;top:-.5rem;right:1rem;line-height:1;pointer-events:none;z-index:0;}
+.cert-doc>*{position:relative;z-index:1;}
+.cert-hdr{margin-bottom:1.2rem;}
+.cert-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--terra);margin-bottom:.15rem;}
+.cert-org{font-size:.72rem;color:var(--brown4);font-style:italic;letter-spacing:.03em;}
+.cert-badge-wrap{margin-bottom:.9rem;}
+.cert-badge{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .85rem;border-radius:20px;font-size:.75rem;font-weight:500;}
+.cert-badge.doer{background:var(--doer-bg);color:var(--doer);border:1px solid var(--doer-border);}
+.cert-badge.voice{background:var(--voice-bg);color:var(--voice);border:1px solid var(--voice-border);}
+.cert-decl{font-family:'Playfair Display',serif;font-style:italic;font-size:.97rem;color:var(--brown);line-height:1.75;background:white;border-radius:9px;padding:.9rem 1.1rem;margin-bottom:.85rem;border-left:3px solid var(--terra);}
+.cert-commit{background:white;border-radius:9px;padding:.75rem 1rem;margin-bottom:.9rem;border-left:2.5px solid var(--sage);}
+.cert-commit .cc-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brown4);display:block;margin-bottom:.2rem;}
+.cert-commit .cc-val{font-size:.85rem;color:var(--brown);}
+.cert-meta{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.85rem;}
+.cert-field{background:white;border-radius:8px;padding:.6rem .85rem;}
+.cf-lbl{font-size:.67rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brown4);display:block;margin-bottom:.2rem;}
+.cf-val{font-size:.79rem;color:var(--brown);word-break:break-all;}
+.cf-val.m{font-family:monospace;font-size:.75rem;}
+.cf-val.r{font-family:'Lora',serif;}
+.cert-hash-box{background:white;border-radius:8px;padding:.65rem .85rem;margin-bottom:.9rem;}
+.cert-hash-val{font-family:monospace;font-size:.68rem;color:var(--brown3);word-break:break-all;line-height:1.65;}
+.cert-actions{display:flex;gap:.75rem;flex-wrap:wrap;}
+.cert-copy{background:var(--terra);color:white;border:none;border-radius:8px;padding:.55rem 1.2rem;font-family:'Lora',serif;font-size:.82rem;cursor:pointer;transition:background .2s;flex:1;}
+.cert-copy:hover{background:var(--terra3);}
+.cert-note{font-size:.72rem;color:var(--brown4);font-style:italic;margin-top:.75rem;line-height:1.55;text-align:center;}
+.to-wall{width:100%;padding:.95rem;background:var(--sage);color:white;border:none;border-radius:12px;font-family:'Playfair Display',serif;font-size:1.05rem;cursor:pointer;transition:background .2s;margin-top:1.1rem;}
+.to-wall:hover{background:var(--sage2);}
+
+/* ── RETURN PANEL ────────────────────────────────── */
+.return-panel{background:#FBF4E8;border:1.5px solid var(--amber3);border-radius:14px;padding:1.4rem;margin-bottom:1.5rem;display:none;}
+.return-panel h3{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--brown);margin-bottom:.35rem;}
+.return-panel p{font-size:.83rem;color:var(--brown3);font-style:italic;margin-bottom:1rem;}
+.return-found{background:var(--doer-bg);border:1px solid var(--doer-border);border-radius:9px;padding:.9rem;font-size:.83rem;color:var(--brown3);line-height:1.6;display:none;}
+
+/* ── TRENDING ────────────────────────────────────── */
+.trending-section{background:var(--cream2);padding:4rem 2rem;}
+.sec-inner{max-width:1100px;margin:0 auto;}
+.sec-ey{font-family:'Caveat',cursive;font-size:1rem;color:var(--amber);display:block;margin-bottom:.3rem;}
+.sec-h{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--brown);margin-bottom:.35rem;}
+.sec-sub{font-size:.88rem;color:var(--brown4);font-style:italic;margin-bottom:2rem;line-height:1.6;}
+.trend-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.9rem;}
+.trend-card{background:var(--paper);border-radius:14px;padding:1.1rem 1.3rem;border:1px solid var(--cream3);cursor:pointer;transition:all .22s;}
+.trend-card:hover{border-color:var(--amber3);transform:translateY(-2px);box-shadow:0 5px 18px rgba(36,20,8,.09);}
+.t-cat-tag{display:inline-block;font-size:.68rem;padding:.2rem .6rem;border-radius:10px;margin-bottom:.6rem;font-weight:500;text-transform:uppercase;letter-spacing:.04em;}
+.t-title{font-size:.9rem;color:var(--brown);font-weight:500;margin-bottom:.5rem;line-height:1.4;}
+.t-bar-row{display:flex;align-items:center;gap:.6rem;}
+.t-bar-bg{flex:1;height:3px;background:var(--cream3);border-radius:10px;overflow:hidden;}
+.t-bar-fill{height:100%;background:linear-gradient(90deg,var(--terra),var(--amber2));border-radius:10px;transition:width 1.2s ease;}
+.t-count{font-family:'Caveat',cursive;font-size:.9rem;color:var(--brown3);white-space:nowrap;}
+
+/* ── WALL ────────────────────────────────────────── */
+.wall-section{padding:4rem 2rem 5rem;background:var(--paper);}
+.wall-top{max-width:1100px;margin:0 auto 1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;}
+.wall-title-wrap h2{font-family:'Playfair Display',serif;font-size:2rem;color:var(--brown);}
+.wall-title-wrap p{font-size:.82rem;color:var(--brown4);font-style:italic;margin-top:.2rem;}
+.wall-stats-row{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.ws-item{text-align:center;}
+.ws-num{font-family:'Caveat',cursive;font-size:1.6rem;color:var(--terra);display:block;}
+.ws-lbl{font-size:.7rem;color:var(--brown4);}
+/* doer bar */
+.doer-bar-section{max-width:1100px;margin:0 auto 1.5rem;}
+.doer-bar-labels{display:flex;justify-content:space-between;font-size:.74rem;color:var(--brown4);font-style:italic;margin-bottom:.4rem;}
+.doer-bar-track{background:var(--cream2);border-radius:20px;height:8px;overflow:hidden;border:1px solid var(--cream3);}
+.doer-bar-fill{height:100%;background:linear-gradient(90deg,var(--doer),var(--sage2));border-radius:20px;transition:width 1.5s ease;}
+/* tabs and chips */
+.wall-controls{max-width:1100px;margin:0 auto 1.5rem;}
+.wall-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.wtab{padding:.38rem .95rem;border-radius:20px;border:1.5px solid var(--cream2);background:var(--cream);font-size:.78rem;cursor:pointer;font-family:'Lora',serif;color:var(--brown3);transition:all .2s;}
+.wtab:hover{border-color:var(--amber3);}
+.wtab.on{background:var(--terra);color:white;border-color:var(--terra);}
+.wtab.on.doer-t{background:var(--doer);border-color:var(--doer);}
+.cat-chips{display:flex;flex-wrap:wrap;gap:.4rem;}
+.chip{padding:.28rem .78rem;border-radius:20px;font-size:.74rem;border:1.5px solid var(--cream2);background:white;color:var(--brown3);cursor:pointer;transition:all .2s;font-family:'Lora',serif;}
+.chip:hover{border-color:var(--amber2);}
+.chip.on{background:var(--terra);color:white;border-color:var(--terra);}
+/* card grid */
+.wall-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1.3rem;max-width:1100px;margin:0 auto;}
+.card{background:white;border-radius:16px;padding:1.6rem;border:1px solid rgba(168,72,30,.09);transition:transform .2s,box-shadow .2s;position:relative;}
+.card:hover{transform:translateY(-2px);box-shadow:0 7px 26px rgba(36,20,8,.1);}
+.card.is-fresh{border:1.5px solid var(--terra);background:#FFF8F4;}
+.card-cat{display:inline-block;padding:.22rem .7rem;border-radius:20px;font-size:.69rem;font-family:'Lora',serif;letter-spacing:.04em;margin-bottom:.85rem;text-transform:uppercase;font-weight:500;}
+.card-text{font-family:'Lora',serif;font-size:.93rem;line-height:1.78;color:var(--brown3);margin-bottom:.8rem;font-style:italic;}
+.card-commit{font-size:.8rem;color:var(--brown3);background:var(--cream);border-radius:8px;padding:.55rem .8rem;margin-bottom:.9rem;border-left:2.5px solid var(--sage);line-height:1.5;}
+.card-commit .cc-pfx{font-size:.67rem;color:var(--brown4);display:block;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.12rem;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--cream2);padding-top:.85rem;flex-wrap:wrap;gap:.5rem;}
+.person{display:flex;align-items:center;gap:.6rem;}
+.av{width:33px;height:33px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:.9rem;font-weight:700;flex-shrink:0;}
+.a1{background:#FDECD8;color:#7A2E10;} .a2{background:#D5E8ED;color:#1A4A5A;} .a3{background:#E0EDD5;color:#274A18;} .a4{background:#EDD5E3;color:#4A1A3A;} .a5{background:#D5E0ED;color:#1A2A4A;} .a6{background:#EDE8D5;color:#4A3A1A;} .a7{background:#F5E5D5;color:#6A3A18;} .a8{background:#D5EDE8;color:#1A4A3A;}
+.pname{font-size:.8rem;font-weight:500;color:var(--brown);display:block;}
+.ploc{font-size:.7rem;color:var(--brown4);display:block;font-style:italic;}
+.card-badge{display:inline-flex;align-items:center;gap:.22rem;padding:.17rem .52rem;border-radius:9px;font-size:.67rem;font-weight:500;}
+.card-badge.doer{background:var(--doer-bg);color:var(--doer);}
+.card-badge.voice{background:var(--voice-bg);color:var(--voice);}
+.card-badge.committed{background:#EEF0F8;color:#2A3A6A;}
+.match-row{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem;}
+.match-pill{font-size:.67rem;padding:.15rem .55rem;border-radius:9px;font-family:'Lora',serif;}
+.match-pill.local{background:#EEF4E8;color:var(--sage);}
+.match-pill.global{background:#F0EEF8;color:#3A2A7A;}
+.cert-sig{font-size:.61rem;color:var(--brown4);font-family:monospace;margin-top:.45rem;opacity:.5;word-break:break-all;line-height:1.4;}
+.card-update{background:var(--cream);border-radius:8px;padding:.6rem .85rem;margin-top:.7rem;border-left:2px solid var(--sky);font-size:.8rem;color:var(--brown3);font-style:italic;line-height:1.5;}
+.card-update .u-date{font-size:.67rem;color:var(--brown4);display:block;margin-bottom:.15rem;font-style:normal;}
+.fresh-badge{position:absolute;top:.85rem;right:.85rem;background:var(--terra);color:white;font-size:.61rem;padding:.16rem .44rem;border-radius:5px;font-family:'Lora',serif;text-transform:uppercase;letter-spacing:.03em;}
+.update-badge{display:inline-block;font-size:.67rem;color:var(--sky);background:#EEF4F8;padding:.13rem .48rem;border-radius:5px;margin-bottom:.45rem;}
+.no-results{text-align:center;padding:3rem;color:var(--brown4);font-style:italic;font-size:.9rem;grid-column:1/-1;}
+
+/* ── HOW IT WORKS ────────────────────────────────── */
+.how-section{background:var(--cream2);padding:4rem 2rem;}
+.how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem;max-width:1100px;margin-left:auto;margin-right:auto;}
+.how-card{background:var(--paper);border-radius:16px;padding:1.8rem 1.5rem;text-align:center;border:1px solid var(--cream3);}
+.how-icon{font-family:'Caveat',cursive;font-size:2.2rem;color:var(--terra);display:block;margin-bottom:.8rem;}
+.how-card h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--brown);margin-bottom:.5rem;}
+.how-card p{font-size:.82rem;color:var(--brown4);line-height:1.65;font-style:italic;}
+
+/* ── STATS ───────────────────────────────────────── */
+.stats-band{background:var(--brown);padding:3rem 2rem;}
+.stats-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;text-align:center;}
+.s-num{font-family:'Playfair Display',serif;font-size:2.6rem;color:var(--amber3);line-height:1;margin-bottom:.35rem;}
+.s-lbl{font-size:.78rem;color:rgba(255,255,255,.45);font-style:italic;}
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer{background:var(--cream2);padding:2.8rem 2rem;text-align:center;}
+.footer-logo{font-family:'Caveat',cursive;font-size:1.8rem;font-weight:700;color:var(--terra);margin-bottom:.5rem;}
+.footer-mission{font-family:'Playfair Display',serif;font-style:italic;font-size:.92rem;color:var(--brown3);max-width:440px;margin:0 auto 1.2rem;line-height:1.7;}
+.footer-links{display:flex;gap:1.8rem;justify-content:center;flex-wrap:wrap;}
+.footer-links a{font-size:.78rem;color:var(--brown4);text-decoration:none;}
+.footer-links a:hover{color:var(--terra);}
+.footer-note{font-size:.7rem;color:var(--brown4);margin-top:1.2rem;font-style:italic;}
+
+/* ── CATEGORY TAG COLORS ─────────────────────────── */
+.tc-env{background:#E8F2E0;color:#2A5A18;} .tc-edu{background:#E0E8F5;color:#1A3A6A;}
+.tc-health{background:#F5E0E0;color:#6A1818;} .tc-equity{background:#F5EEE0;color:#6A4818;}
+.tc-tech{background:#E8E0F5;color:#3A1A6A;} .tc-local{background:#E0F5EE;color:#1A5A40;}
+.tc-econ{background:#FFF0D0;color:#6A4808;} .tc-food{background:#E5F5E0;color:#1A5018;}
+.tc-sci{background:#E0EDF5;color:#1A3A5A;} .tc-arts{background:#F5E0EE;color:#5A1A3A;}
+.tc-house{background:#F0EAE0;color:#4A2A18;} .tc-animal{background:#EAF5E0;color:#2A5818;}
+.tc-pol{background:#EAE0F5;color:#3A1A5A;} .tc-human{background:#F5E8E0;color:#6A2A18;}
+.tc-other{background:#EBEBEB;color:#3A3A3A;}
+
+/* ── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.55;}}
+.hero-kicker{animation:fadeUp .55s ease both;}
+.hero-q{animation:fadeUp .65s .08s ease both;}
+.hero-sub{animation:fadeUp .65s .16s ease both;}
+.pre-filter{animation:fadeUp .65s .24s ease both;}
+.form-card{animation:fadeUp .65s .3s ease both;}
+
+/* ── FOUNDER'S VOICE ──────────────────────────────── */
+.fv-overlay{position:fixed;inset:0;background:rgba(36,20,8,.55);z-index:500;display:flex;align-items:center;justify-content:center;padding:1.5rem;backdrop-filter:blur(3px);animation:fadeUp .3s ease both;}
+.fv-overlay.hidden{display:none;}
+.fv-modal{background:var(--paper);border-radius:20px;max-width:600px;width:100%;padding:2.4rem;position:relative;max-height:90vh;overflow-y:auto;
+  box-shadow:0 20px 60px rgba(36,20,8,.3),0 0 0 1px rgba(168,72,30,.12);}
+.fv-modal::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--terra),var(--amber2),var(--sage2));border-radius:20px 20px 0 0;}
+.fv-close{position:absolute;top:.9rem;right:.9rem;background:none;border:none;font-size:1.1rem;color:var(--brown4);cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background .2s;}
+.fv-close:hover{background:var(--cream2);}
+.fv-eyebrow{font-family:'Caveat',cursive;font-size:1rem;color:var(--terra);display:block;margin-bottom:.5rem;}
+.fv-author{display:flex;align-items:center;gap:.8rem;margin-bottom:1.1rem;}
+.fv-av{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--terra),var(--amber2));display:flex;align-items:center;justify-content:center;font-family:'Caveat',cursive;font-size:1.15rem;font-weight:700;color:white;flex-shrink:0;}
+.fv-author-n{font-family:'Playfair Display',serif;font-size:.9rem;font-weight:700;color:var(--brown);display:block;}
+.fv-author-s{font-size:.73rem;color:var(--brown4);font-style:italic;display:block;}
+.fv-badge{display:inline-flex;align-items:center;gap:.32rem;padding:.22rem .75rem;border-radius:20px;font-size:.7rem;font-weight:500;background:var(--doer-bg);color:var(--doer);border:1px solid var(--doer-border);margin-bottom:.9rem;}
+.fv-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:.98rem;color:var(--brown);line-height:1.8;border-left:3px solid var(--terra);padding:.5rem 1rem;margin-bottom:.9rem;background:rgba(168,72,30,.03);border-radius:0 8px 8px 0;}
+.fv-move{font-size:.83rem;color:var(--brown3);background:var(--cream);border-radius:8px;padding:.6rem .85rem;border-left:2.5px solid var(--sage);margin-bottom:1.15rem;line-height:1.55;}
+.fv-move-lbl{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--brown4);display:block;margin-bottom:.12rem;}
+.fv-actions{display:flex;gap:.7rem;flex-wrap:wrap;}
+.fv-cta{flex:1;min-width:160px;padding:.72rem 1rem;background:var(--terra);color:white;border:none;border-radius:10px;font-family:'Playfair Display',serif;font-size:.92rem;cursor:pointer;transition:background .2s;text-align:center;}
+.fv-cta:hover{background:var(--terra3);}
+.fv-skip{padding:.72rem 1rem;background:transparent;color:var(--terra);border:1.5px solid var(--terra);border-radius:10px;font-family:'Lora',serif;font-size:.82rem;cursor:pointer;transition:all .2s;}
+.fv-skip:hover{background:var(--cream);}
+.fv-footer{text-align:center;font-size:.68rem;color:var(--brown4);margin-top:.95rem;font-style:italic;}
+/* persistent strip that opens the dialog */
+.fv-strip{background:var(--brown2);padding:.78rem 2rem;cursor:pointer;transition:opacity .2s;border-bottom:1px solid rgba(255,255,255,.06);}
+.fv-strip:hover{opacity:.88;}
+.fv-strip-inn{max-width:900px;margin:0 auto;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;}
+.fv-strip-tag{font-family:'Caveat',cursive;font-size:.88rem;color:var(--amber3);white-space:nowrap;flex-shrink:0;border:1px solid rgba(200,160,0,.3);padding:.1rem .55rem;border-radius:8px;}
+.fv-strip-txt{font-family:'Playfair Display',serif;font-style:italic;font-size:.83rem;color:rgba(255,255,255,.65);flex:1;line-height:1.35;}
+.fv-strip-open{font-size:.72rem;color:var(--amber3);border-bottom:1px solid var(--amber3);white-space:nowrap;flex-shrink:0;}
+
+/* ── T&C CHECKBOX ─────────────────────────────────── */
+.tnc-block{background:rgba(168,72,30,.04);border:1.5px solid rgba(168,72,30,.18);border-radius:11px;padding:.88rem 1rem;margin-bottom:.75rem;}
+.tnc-block:hover{border-color:rgba(168,72,30,.35);}
+.tnc-row-inner{display:flex;align-items:flex-start;gap:.72rem;cursor:pointer;}
+.tnc-row-inner input[type=checkbox]{width:16px;height:16px;flex-shrink:0;accent-color:var(--terra);margin-top:3px;cursor:pointer;}
+.tnc-label{font-size:.8rem;color:var(--brown2);line-height:1.55;}
+.tnc-label strong{display:block;color:var(--brown);font-weight:500;margin-bottom:.12rem;font-size:.83rem;}
+.tnc-label a{color:var(--terra);text-underline-offset:2px;}
+.tnc-label a:hover{color:var(--terra3);}
+.tnc-warn{font-size:.7rem;color:var(--terra);font-style:italic;margin-top:.4rem;display:none;}
+.tnc-warn.show{display:block;}
+
+/* ── ALL VOICES SECTION ──────────────────────────── */
+#voices-section{display:none;min-height:100vh;}
+.vh-hero{background:var(--brown);padding:3.2rem 2rem 0;}
+.vh-top{max-width:1100px;margin:0 auto;text-align:center;padding-bottom:1.8rem;}
+.vh-top h2{font-family:'Playfair Display',serif;font-size:2rem;color:white;margin-bottom:.4rem;}
+.vh-top p{font-size:.88rem;color:rgba(255,255,255,.5);font-style:italic;max-width:460px;margin:0 auto 1.6rem;}
+.vh-srch-wrap{max-width:540px;margin:0 auto;position:relative;}
+.vh-srch{width:100%;padding:.8rem 1rem .8rem 2.8rem;background:white;border:none;border-radius:50px;font-family:'Lora',serif;font-size:.9rem;color:var(--brown);outline:none;box-shadow:0 2px 20px rgba(0,0,0,.18);}
+.vh-srch::placeholder{color:var(--brown4);opacity:.65;font-style:italic;}
+.vh-srch-ico{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);font-size:.92rem;opacity:.4;pointer-events:none;}
+.vh-srch-cnt{position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:.7rem;color:var(--brown4);font-family:monospace;background:var(--cream);padding:.08rem .38rem;border-radius:8px;}
+.vh-tabs{max-width:1100px;margin:0 auto;display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,.1);}
+.vhtab{padding:.95rem 2rem;font-family:'Playfair Display',serif;font-size:.94rem;color:rgba(255,255,255,.42);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap;}
+.vhtab:hover{color:rgba(255,255,255,.7);}
+.vhtab.on{color:white;border-bottom-color:var(--amber2);}
+.vhtab .vt-c{font-family:monospace;font-size:.68rem;color:var(--amber3);margin-left:.45rem;opacity:.78;}
+.wstats-bar{background:white;border-bottom:1px solid var(--cream2);padding:.9rem 2rem;}
+.wstats-inn{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.75rem;}
+.wst-nums{display:flex;gap:1.4rem;flex-wrap:wrap;}
+.wst-n{font-family:'Caveat',cursive;font-size:1.42rem;color:var(--terra);display:block;}
+.wst-l{font-size:.66rem;color:var(--brown4);}
+.wst-doer-wrap{flex:1;max-width:280px;}
+.wst-dlbls{display:flex;justify-content:space-between;font-size:.67rem;color:var(--brown4);font-style:italic;margin-bottom:.25rem;}
+.wst-dtrack{background:var(--cream2);border-radius:20px;height:5px;overflow:hidden;}
+.wst-dfill{height:100%;background:linear-gradient(90deg,var(--doer),var(--sage2));border-radius:20px;transition:width 1.5s ease;}
+.smart-filters{display:flex;gap:.45rem;flex-wrap:wrap;margin-bottom:1.1rem;}
+.sf-btn{padding:.36rem .88rem;border-radius:20px;border:1.5px solid var(--cream2);background:var(--paper);font-size:.76rem;cursor:pointer;font-family:'Lora',serif;color:var(--brown3);transition:all .2s;}
+.sf-btn:hover{border-color:var(--amber2);background:var(--cream);}
+.sf-btn.on{background:var(--terra);color:white;border-color:var(--terra);}
+.sf-btn.on-qw{background:var(--sage);border-color:var(--sage);}
+.sf-btn.on-fb{background:#2A5878;border-color:#2A5878;}
+.sf-btn.on-gl{background:var(--brown2);border-color:var(--brown2);}
+.mvmt-search-row{max-width:500px;margin:0 auto 1.4rem;position:relative;}
+.mvmt-srch{width:100%;padding:.72rem 1rem .72rem 2.6rem;background:white;border:1.5px solid var(--cream2);border-radius:50px;font-family:'Lora',serif;font-size:.86rem;color:var(--brown);outline:none;transition:border-color .2s,box-shadow .2s;}
+.mvmt-srch:focus{border-color:var(--amber2);box-shadow:0 0 0 3px rgba(201,125,58,.1);}
+.mvmt-srch::placeholder{color:var(--brown4);opacity:.6;font-style:italic;}
+.mvmt-srch-ico{position:absolute;left:.88rem;top:50%;transform:translateY(-50%);font-size:.86rem;opacity:.4;pointer-events:none;}
+.mvmt-sort-row{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.4rem;}
+.mvmt-sort-btn{padding:.3rem .8rem;border-radius:20px;border:1.5px solid var(--cream2);background:var(--paper);font-size:.73rem;cursor:pointer;font-family:'Lora',serif;color:var(--brown3);transition:all .2s;}
+.mvmt-sort-btn:hover{border-color:var(--amber2);}
+.mvmt-sort-btn.on{background:var(--terra);color:white;border-color:var(--terra);}
+.mvmt-note{text-align:center;font-size:.82rem;color:var(--brown4);font-style:italic;margin-bottom:1.4rem;}
+.mvmt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(316px,1fr));gap:1.1rem;}
+.mvmt-card{background:white;border-radius:16px;overflow:hidden;border:1px solid rgba(168,72,30,.08);transition:transform .2s,box-shadow .2s;cursor:pointer;}
+.mvmt-card:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(36,20,8,.09);}
+.mvmt-card.hidden{display:none;}
+.mc-head{padding:1.1rem 1.3rem .88rem;border-bottom:1px solid var(--cream2);}
+.mc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.42rem;margin-bottom:.62rem;}
+.mc-cat-tag{display:inline-block;padding:.18rem .62rem;border-radius:20px;font-size:.66rem;font-family:'Lora',serif;letter-spacing:.04em;text-transform:uppercase;font-weight:500;}
+.mc-trend{font-size:.7rem;color:var(--brown4);font-family:monospace;display:flex;align-items:center;gap:.25rem;white-space:nowrap;}
+.mc-trend.hot{color:var(--terra);}
+.mc-trend.up{color:var(--sage);}
+.mc-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--brown);line-height:1.3;margin-bottom:.45rem;}
+.mc-meta{display:flex;gap:.88rem;align-items:center;flex-wrap:wrap;}
+.mc-voices-n{font-family:'Caveat',cursive;font-size:1.15rem;color:var(--terra);}
+.mc-voices-l{font-size:.65rem;color:var(--brown4);}
+.mc-doer-wrap{flex:1;}
+.mc-doer-lbl-row{display:flex;justify-content:space-between;font-size:.63rem;color:var(--brown4);margin-bottom:.16rem;}
+.mc-doer-track{background:var(--cream2);border-radius:10px;height:4px;overflow:hidden;}
+.mc-doer-fill{height:100%;background:linear-gradient(90deg,var(--doer),var(--sage2));border-radius:10px;}
+.mc-snips{padding:.78rem 1.3rem;}
+.mc-snip{font-size:.76rem;color:var(--brown3);font-style:italic;line-height:1.5;padding:.4rem 0;border-bottom:1px solid var(--cream2);}
+.mc-snip:last-child{border-bottom:none;padding-bottom:0;}
+.mc-snip::before{content:'"';color:var(--amber);font-size:.92rem;font-family:'Playfair Display',serif;margin-right:.15rem;}
+.mc-foot{padding:.7rem 1.3rem;background:var(--cream);display:flex;justify-content:space-between;align-items:center;}
+.mc-doers-lbl{font-size:.7rem;color:var(--doer);font-weight:500;}
+.mc-explore-lbl{font-size:.68rem;color:var(--terra);border-bottom:1px solid var(--terra);}
+#tab-voices-content{padding:1.8rem 2rem;max-width:1100px;margin:0 auto;}
+#tab-mvmt-content{display:none;padding:1.8rem 2rem;max-width:1100px;margin:0 auto;}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:680px){
+  nav{padding:1rem 1.2rem;} .nav-r .nav-link,.nav-r .nav-cta{display:none;}
+  .hero{padding:3rem 1.2rem 2rem;}
+  .pre-filter{flex-direction:column;}
+  .form-card{padding:1.8rem 1.2rem;}
+  .frow{grid-template-columns:1fr;}
+  .contrib-grid{grid-template-columns:1fr;}
+  .cert-meta{grid-template-columns:1fr;}
+  .wall-top{flex-direction:column;align-items:flex-start;}
+  .cert-actions{flex-direction:column;}
+  #tab-voices-content,#tab-mvmt-content{padding:1.2rem;}
+  .mvmt-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- ── TICKER ──────────────────────────────────────── -->
+<div class="ticker">
+  <div class="ticker-inner" id="ticker">
+    <span class="t-lbl">Trending →</span>
+    <span class="t-item">End everyday loneliness · 12.4k voices</span><span class="t-sep">✦</span>
+    <span class="t-item">Safe streets for women · 10.8k voices</span><span class="t-sep">✦</span>
+    <span class="t-item">Clean air for all cities · 9.7k voices</span><span class="t-sep">✦</span>
+    <span class="t-item">Education that inspires · 7.8k voices</span><span class="t-sep">✦</span>
+    <span class="t-item">AI for the overlooked · 5.9k voices</span><span class="t-sep">✦</span>
+    <span class="t-item">Affordable housing as a right · 5.1k voices</span><span class="t-sep">✦</span>
+    <span class="t-item">Living wage everywhere · 4.3k voices</span><span class="t-sep">✦</span>
+  </div>
+</div>
+
+<!-- ── NAV ─────────────────────────────────────────── -->
+<nav>
+  <a href="#" class="logo" onclick="showHome();return false;">do<span>the</span>needs</a>
+  <div class="nav-r">
+    <button class="nav-link" onclick="showVoices()" style="background:none;border:none;cursor:pointer;font-family:'Lora',serif;">All Voices</button>
+    <a href="#trending-section" class="nav-link">Trending</a>
+    <a href="#how-section" class="nav-link">How it works</a>
+    <button class="nav-return" onclick="toggleReturn()">↩ Update your story</button>
+    <a href="#declare" class="nav-cta">Declare yours →</a>
+  </div>
+</nav>
+
+<!-- ── MANIFESTO STRIP ─────────────────────────────── -->
+<div class="manifesto-strip">
+  <p>This is <strong>not a place to complain.</strong> It is a place to declare what you want to change — and to answer the harder question: <strong>what will you do about it?</strong></p>
+</div>
+
+<!-- ── FOUNDER'S VOICE STRIP ───────────────────────── -->
+<div class="fv-strip" onclick="openFounderVoice()">
+  <div class="fv-strip-inn">
+    <span class="fv-strip-tag">✦ Founder's Voice</span>
+    <span class="fv-strip-txt">"If there is a patient and a doctor, why do we need so many middlemen? I want to find out — and this platform is my first move."</span>
+    <span class="fv-strip-open">Read the declaration →</span>
+  </div>
+</div>
+
+<!-- ── FOUNDER'S VOICE MODAL ───────────────────────── -->
+<div class="fv-overlay hidden" id="fv-overlay" onclick="closeFVIfOutside(event)">
+  <div class="fv-modal" id="fv-modal">
+    <button class="fv-close" onclick="closeFounderVoice()" title="Close">✕</button>
+
+    <span class="fv-eyebrow">✦ Founder's Voice — DoTheNeeds</span>
+
+    <div class="fv-author">
+      <div class="fv-av">N</div>
+      <div>
+        <span class="fv-author-n">Nathan, Founder — EXADreams LLC</span>
+        <span class="fv-author-s">Frisco, Texas · Health & Wellbeing + Economy & Finance</span>
+      </div>
+    </div>
+
+    <div class="fv-badge">🛠 Doer — committed to action</div>
+
+    <div class="fv-quote">
+      "I want health insurance to be peer-to-peer — a community contribution pool, governed transparently, where the only relationship that truly matters is between a patient and a doctor.<br><br>
+      Today's middlemen exist because the system was built before automation. Tomorrow's system doesn't need them in the same form. Technology can replace the bureaucracy, build the guardrails, and redirect every dollar spent on administration back into actual care.<br><br>
+      If your premium goes down and your benefits improve — don't you want that?<br><br>
+      If you can't imagine the system changing, this conversation isn't for you. But if you can — let's figure out the how together. The what is clear. The how is for the builders, the policymakers, the doers. That conversation starts here."
+    </div>
+
+    <div class="fv-move">
+      <span class="fv-move-lbl">My move</span>
+      I built DoTheNeeds.com — a platform to turn individual voices into movements. Because this conversation needed to start somewhere, and it starts here. That makes me a doer, not just a talker. This page is my contribution.
+    </div>
+
+    <p style="font-size:.8rem;color:var(--brown4);font-style:italic;margin-bottom:1.2rem;line-height:1.6;">
+      DoTheNeeds was built because one conversation is never enough — but a movement of a thousand conversations can change a system. This is what triggered it. It can't be a voice. It has to be a movement.
+    </p>
+
+    <div class="fv-actions">
+      <button class="fv-cta" onclick="closeFounderVoice();document.getElementById('declare').scrollIntoView({behavior:'smooth'});">Add your own declaration →</button>
+      <button class="fv-skip" onclick="closeFounderVoice()">Close</button>
+    </div>
+
+    <div class="fv-footer">DoTheNeeds is a product of EXADreams LLC · dotheneeds.com<br>
+      <a href="/terms" style="color:var(--terra);">Terms of Service</a> ·
+      <a href="/privacy" style="color:var(--terra);">Privacy Policy</a> ·
+      <a href="/community" style="color:var(--terra);">Community Standards</a>
+    </div>
+  </div>
+</div>
+
+<!-- ── HERO ────────────────────────────────────────── -->
+<section style="background:var(--cream);position:relative;overflow:hidden;">
+  <div class="orb" style="width:600px;height:600px;background:rgba(201,125,58,.08);top:-150px;right:-100px;"></div>
+  <div class="orb" style="width:350px;height:350px;background:rgba(80,104,64,.06);bottom:-50px;left:-80px;"></div>
+  <div class="hero">
+    <span class="hero-kicker">✦ every industry · every cause · every nation ✦</span>
+    <h1 class="hero-q">What is the <em>one thing</em><br>you want to change?</h1>
+    <p class="hero-sub">A global declaration board. Anonymous or named. Timestamped and hashed — your words are yours, forever. But before you declare, two questions.</p>
+
+    <div class="pre-filter">
+      <div class="pf-item">
+        <span class="pf-n">01</span>
+        <span class="pf-q">Is this need beyond just you? Could others — strangers across the world — feel it independently?</span>
+        <span class="pf-note">Systemic needs make meaningful declarations. Personal grievances do not.</span>
+      </div>
+      <div class="pf-item">
+        <span class="pf-n">02</span>
+        <span class="pf-q">What will <em>you</em> personally do about it? You'll answer this after you declare.</span>
+        <span class="pf-note">A declaration without a commitment is just an opinion. We ask for more.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FORM ────────────────────────────────────────── -->
+  <div class="form-wrap" id="declare">
+    <div class="form-card">
+
+      <!-- step indicator -->
+      <div class="steps">
+        <div class="step-dot active" id="sd1">1</div>
+        <div class="step-line" id="sl1"></div>
+        <div class="step-dot idle" id="sd2">2</div>
+        <div class="step-line" id="sl2"></div>
+        <div class="step-dot idle" id="sd3">✓</div>
+      </div>
+
+      <!-- ── STEP 1 ── -->
+      <div id="s1">
+        <h2 class="fc-title">Your declaration</h2>
+        <p class="fc-sub">What systemic need do you want the world to hear?</p>
+
+        <!-- return panel -->
+        <div class="return-panel" id="return-panel">
+          <h3>Welcome back.</h3>
+          <p>Match your details below to find your previous declaration and add an update to your story.</p>
+          <div class="frow">
+            <div class="fg"><label>Name</label><input type="text" id="r-name" placeholder="As you entered it"></div>
+            <div class="fg"><label>Age</label><input type="number" id="r-age" placeholder="Age"></div>
+          </div>
+          <div class="frow">
+            <div class="fg"><label>Nationality</label><select id="r-orig"><option value="">Select...</option></select></div>
+            <div class="fg"><label>Country of residence</label><select id="r-live"><option value="">Select...</option></select></div>
+          </div>
+          <button class="btn-main" style="margin-top:0" onclick="findReturn()">Find my declaration →</button>
+          <div class="return-found" id="return-found"></div>
+        </div>
+
+        <div class="frow">
+          <div class="fg"><label>First name</label><input type="text" id="fname" placeholder="Maria"></div>
+          <div class="fg"><label>Age</label><input type="number" id="fage" placeholder="34" min="13" max="120"></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label>Nationality</label><select id="forig"><option value="">Select country...</option></select></div>
+          <div class="fg"><label>Country of residence</label><select id="flive"><option value="">Select country...</option></select></div>
+        </div>
+        <div class="fg">
+          <label>Industry / area (optional — AI will categorise if blank)</label>
+          <select id="findustry">
+            <option value="">Categorise automatically</option>
+            <option>Environment & Climate</option><option>Education & Learning</option><option>Health & Wellbeing</option>
+            <option>Technology & AI</option><option>Economy & Finance</option><option>Social Justice & Equity</option>
+            <option>Politics & Governance</option><option>Science & Research</option><option>Arts & Culture</option>
+            <option>Local Community</option><option>Human Rights</option><option>Food & Agriculture</option>
+            <option>Housing & Urban</option><option>Transportation</option><option>Animal Rights</option><option>Other</option>
+          </select>
+        </div>
+        <div class="fg">
+          <p class="the-q">"The one thing I want to change in this world is…"</p>
+          <textarea id="ftext" placeholder="Write from the place of knowing, not anger. What does the world need that it doesn't yet have? What would make it more just, more alive, more whole?" maxlength="400" oninput="onTextInput(this)"></textarea>
+          <div class="char-c"><span id="cc">0</span> / 400</div>
+        </div>
+
+        <div class="mod hard" id="mod-hard"><strong>This declaration cannot be posted</strong><span id="mod-hard-msg"></span></div>
+        <div class="mod soft" id="mod-soft"><strong>Review before posting</strong><span id="mod-soft-msg"></span></div>
+
+        <!-- ══ THE MOVE FIELD — what will you do ══ -->
+        <div style="background:linear-gradient(135deg,#FFF8F2,#FBF4E8);border:1.5px solid rgba(168,72,30,.2);border-radius:14px;padding:1.4rem 1.5rem;margin-bottom:1rem;">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--brown);margin-bottom:.3rem;">Now name your move.</h3>
+          <p style="font-size:.83rem;color:var(--brown3);line-height:1.62;margin-bottom:.75rem;">Don't just declare the world's need — declare <em style="color:var(--terra);">your role in meeting it</em>. What will YOU personally do to make this change real? It doesn't have to be enormous. It has to be honest. A conversation you'll have, a skill you'll volunteer, a company you'll build, a life you'll redirect — all of it belongs here.</p>
+          <div class="fg" style="margin-bottom:0;">
+            <label>"I will…"</label>
+            <textarea id="faction" placeholder="Something small. Something enormous. Something you can start tomorrow or commit years to. What's your move?" maxlength="280" style="min-height:82px;background:white;border-color:rgba(168,72,30,.22);resize:vertical;"></textarea>
+          </div>
+          <div style="text-align:right;font-size:.69rem;color:var(--brown4);margin-top:.4rem;font-style:italic;">This becomes part of your permanent declaration and certificate.</div>
+        </div>
+
+        <!-- ── TERMS & CONDITIONS ── -->
+        <div class="tnc-block">
+          <label class="tnc-row-inner" for="chk-tnc">
+            <input type="checkbox" id="chk-tnc" onchange="onTncChange()">
+            <div class="tnc-label">
+              <strong>I agree to the Terms of Service, Privacy Policy, and Community Standards</strong>
+              By declaring, I confirm this is a systemic need (not a personal grievance), my words are honest, and I accept the
+              <a href="/terms" target="_blank">Terms of Service</a>,
+              <a href="/privacy" target="_blank">Privacy Policy</a>, and
+              <a href="/community" target="_blank">Community Standards</a>
+              of DoTheNeeds, operated by <strong>EXADreams LLC</strong>.
+              I understand my declaration will be publicly visible, permanently timestamped, and cryptographically signed.
+            </div>
+          </label>
+          <div class="tnc-warn" id="tnc-warn">Please read and accept the policies above before declaring.</div>
+        </div>
+
+        <button class="btn-main" id="btn-next" onclick="toStep2()" disabled>Declare it to the world →</button>
+        <p class="form-foot">Your words will be timestamped and SHA-256 hashed the moment they are posted — permanent proof they came from you first. A product of <strong>EXADreams LLC</strong>.</p>
+      </div>
+
+      <!-- ── STEP 2 ── -->
+      <div id="s2" style="display:none;">
+        <h2 class="pivot-h">You've declared the need.<br><em>Now declare yourself.</em></h2>
+        <p class="pivot-sub">What will you actually do about it? Any honest answer is welcome — including "I don't know yet." The platform respects honesty above performance.</p>
+
+        <div class="contrib-grid" id="cg">
+          <div class="cb-opt" onclick="pickContrib(this,'build','doer')">
+            <span class="cb-icon">🛠</span>
+            <span class="cb-lbl">I'll build something</span>
+            <span class="cb-sub">A product, tool, organisation, or system</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'fund','doer')">
+            <span class="cb-icon">💰</span>
+            <span class="cb-lbl">I'll fund it</span>
+            <span class="cb-sub">Donate money, time, or resources</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'organize','doer')">
+            <span class="cb-icon">👥</span>
+            <span class="cb-lbl">I'll organise people</span>
+            <span class="cb-sub">Community, coalition, events</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'educate','doer')">
+            <span class="cb-icon">📚</span>
+            <span class="cb-lbl">I'll teach or write about it</span>
+            <span class="cb-sub">Educate, research, advocate</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'volunteer','doer')">
+            <span class="cb-icon">🤝</span>
+            <span class="cb-lbl">I'll volunteer my time</span>
+            <span class="cb-sub">Show up. Do the actual work.</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'spread','committed')">
+            <span class="cb-icon">📢</span>
+            <span class="cb-lbl">I'll spread the word</span>
+            <span class="cb-sub">Amplify, share, make it visible</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'figuring','neutral')">
+            <span class="cb-icon">💭</span>
+            <span class="cb-lbl">I'm still figuring out how</span>
+            <span class="cb-sub">I want to act — I don't know where to start</span>
+          </div>
+          <div class="cb-opt" onclick="pickContrib(this,'witness','voice')">
+            <span class="cb-icon">👁</span>
+            <span class="cb-lbl">I'm here to declare</span>
+            <span class="cb-sub">Honest: I'm a voice, not yet an actor</span>
+          </div>
+        </div>
+
+        <div class="fg" id="commit-wrap" style="display:none;">
+          <label>Your commitment in one sentence</label>
+          <input type="text" id="fcommit" placeholder="e.g. I will mentor 2 young students in my city every month">
+        </div>
+
+        <label class="ck-row" for="chk-anon">
+          <input type="checkbox" id="chk-anon">
+          <div class="ckl"><strong>Post anonymously</strong><em>Your name won't appear publicly. The timestamp and hash still prove it's yours. "Anonymous to the world. Not anonymous to time."</em></div>
+        </label>
+        <label class="ck-row ck-donate" for="chk-donate">
+          <input type="checkbox" id="chk-donate">
+          <div class="ckl"><strong>Contribute $1 to keep this platform free for everyone</strong><em>Optional. Covers hosting, moderation, and the time invested in building this space. Every dollar keeps one more voice free.</em></div>
+        </label>
+
+        <button class="btn-main" id="btn-submit" onclick="submit()" disabled>
+          <span class="spin" id="spin"></span>
+          <span id="btn-submit-text">Select how you'll contribute first</span>
+        </button>
+        <button class="btn-back" onclick="toStep1()">← Back to your declaration</button>
+        <p class="form-foot">Your declaration is permanent. Your commitment is public. Both are yours forever.</p>
+      </div>
+
+      <!-- ── STEP 3: CERTIFICATE ── -->
+      <div id="cert-view">
+        <div class="cert-intro">
+          <span class="cert-check">✓</span>
+          <h3>Declared. Signed. Witnessed.</h3>
+          <p>Your certificate of declaration. The hash below is your permanent, independently verifiable proof.</p>
+        </div>
+        <div class="cert-doc">
+          <div class="cert-wm">✦</div>
+          <div class="cert-hdr">
+            <div class="cert-title">Declaration Certificate</div>
+            <div class="cert-org">dotheneeds.com · Independently verifiable · SHA-256 signed</div>
+          </div>
+          <div class="cert-badge-wrap"><div class="cert-badge" id="cert-badge-el"></div></div>
+          <div class="cert-decl" id="c-text"></div>
+          <div class="cert-commit"><span class="cc-lbl">Commitment</span><span class="cc-val" id="c-commit"></span></div>
+          <div class="cert-meta">
+            <div class="cert-field"><span class="cf-lbl">Declared by</span><span class="cf-val r" id="c-name"></span></div>
+            <div class="cert-field"><span class="cf-lbl">Category</span><span class="cf-val r" id="c-cat"></span></div>
+            <div class="cert-field"><span class="cf-lbl">Timestamp (UTC)</span><span class="cf-val m" id="c-ts"></span></div>
+            <div class="cert-field"><span class="cf-lbl">Declaration ID</span><span class="cf-val m" id="c-id"></span></div>
+          </div>
+          <div class="cert-hash-box">
+            <span class="cf-lbl">SHA-256 Hash — your digital fingerprint</span>
+            <div class="cert-hash-val" id="c-hash"></div>
+          </div>
+          <div class="cert-actions">
+            <button class="cert-copy" id="copy-btn" onclick="copyCert()">Copy certificate</button>
+          </div>
+          <p class="cert-note">Keep this hash. If anyone ever claims your idea as theirs — this timestamp and this hash, verifiable on any public record — proves it came from you first.</p>
+        </div>
+        <button class="to-wall" onclick="showVoices()">See all voices — join the conversation →</button>
+      </div>
+
+    </div><!-- /form-card -->
+  </div><!-- /form-wrap -->
+</section>
+
+<!-- ── TRENDING ──────────────────────────────────── -->
+<section class="trending-section" id="trending-section">
+  <div class="sec-inner">
+    <span class="sec-ey">✦ what the world is saying right now ✦</span>
+    <h2 class="sec-h">Trending needs</h2>
+    <p class="sec-sub">Across every industry. Every country. Updated as new voices arrive.</p>
+    <div class="trend-grid" id="trend-grid"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     ALL VOICES SECTION — public, no declaration required
+══════════════════════════════════════════════ -->
+<div id="voices-section">
+
+  <!-- dark hero + global search + main tabs -->
+  <div class="vh-hero">
+    <div class="vh-top">
+      <h2>All Voices</h2>
+      <p>Open to everyone. No declaration required. Every voice timestamped, hashed, and permanent.</p>
+      <div class="vh-srch-wrap">
+        <span class="vh-srch-ico">🔍</span>
+        <input type="text" class="vh-srch" id="vh-srch-inp" placeholder="Search declarations, categories, locations, causes…" oninput="onVoicesSearch(this.value)">
+        <span class="vh-srch-cnt" id="vh-srch-cnt"></span>
+      </div>
+    </div>
+    <div class="vh-tabs">
+      <div class="vhtab on" id="vt-voices" onclick="switchVoicesTab('voices')">
+        Voices <span class="vt-c" id="vtc-voices">0</span>
+      </div>
+      <div class="vhtab" id="vt-mvmt" onclick="switchVoicesTab('mvmt')">
+        Movements <span class="vt-c" id="vtc-mvmt">0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- stats bar -->
+  <div class="wstats-bar">
+    <div class="wstats-inn">
+      <div class="wst-nums">
+        <div><span class="wst-n" id="ws-total">—</span><span class="wst-l">voices</span></div>
+        <div><span class="wst-n" id="ws-doers" style="color:var(--doer)">—</span><span class="wst-l">doers</span></div>
+        <div><span class="wst-n" id="ws-countries">—</span><span class="wst-l">countries</span></div>
+      </div>
+      <div class="wst-doer-wrap">
+        <div class="wst-dlbls"><span id="doer-pct-lbl">Loading…</span><span style="color:var(--voice)">Voices</span></div>
+        <div class="wst-dtrack"><div class="wst-dfill" id="doer-fill" style="width:0%"></div></div>
+      </div>
+      <button class="btn-back" style="width:auto;padding:.38rem .95rem;font-size:.76rem;" onclick="showHome()">← Home</button>
+    </div>
+  </div>
+
+  <!-- ── TAB: VOICES ── -->
+  <div id="tab-voices-content">
+    <div class="smart-filters">
+      <div class="sf-btn on"    id="sf-trending" onclick="setSmartFilter('trending',this)">🔥 Most trending</div>
+      <div class="sf-btn on-qw" id="sf-qw"       onclick="setSmartFilter('quickwins',this)">⚡ Quick wins</div>
+      <div class="sf-btn on-fb" id="sf-fb"       onclick="setSmartFilter('factbased',this)">📊 Fact-based</div>
+      <div class="sf-btn on-gl" id="sf-gl"       onclick="setSmartFilter('global',this)">🌍 Most global</div>
+      <div class="sf-btn"       id="sf-recent"   onclick="setSmartFilter('recent',this)">🕐 Most recent</div>
+    </div>
+    <div class="cat-chips" id="cat-chips"></div>
+    <div class="wall-grid" id="wall-grid"></div>
+  </div>
+
+  <!-- ── TAB: MOVEMENTS ── -->
+  <div id="tab-mvmt-content">
+    <p class="mvmt-note" style="margin-top:.5rem;">"Is there a movement for what you care about?" — Search or explore every active movement below.</p>
+    <div class="mvmt-search-row">
+      <span class="mvmt-srch-ico">🔍</span>
+      <input type="text" class="mvmt-srch" id="mvmt-srch-inp" placeholder="Search for a cause, industry, or need…" oninput="filterMovements(this.value)">
+    </div>
+    <div class="mvmt-sort-row">
+      <div class="mvmt-sort-btn on" onclick="setMvmtSort('voices',this)">Most voices</div>
+      <div class="mvmt-sort-btn"   onclick="setMvmtSort('doers',this)">Most doers</div>
+      <div class="mvmt-sort-btn"   onclick="setMvmtSort('alpha',this)">A → Z</div>
+    </div>
+    <div class="mvmt-grid" id="mvmt-grid"></div>
+  </div>
+
+  <!-- footer inside All Voices -->
+  <footer style="border-top:1px solid var(--cream3);margin-top:3rem;">
+    <div class="footer-logo">dotheneeds</div>
+    <p class="footer-mission">"Not here to witness. Here to move."</p>
+    <div class="footer-links"><a href="#">About</a><a href="#">Privacy</a><a href="#">Moderation</a><a href="#">Contact</a></div>
+    <p class="footer-note">No advertising. No data selling. No algorithmic amplification. Every voice permanent.</p>
+  </footer>
+</div><!-- /voices-section -->
+
+<!-- ── HOW IT WORKS ───────────────────────────────── -->
+<section class="how-section" id="how-section">
+  <div class="sec-inner" style="text-align:center;">
+    <span class="sec-ey">✦ simple by design ✦</span>
+    <h2 class="sec-h">How it works</h2>
+    <div class="how-grid">
+      <div class="how-card">
+        <span class="how-icon">✍</span>
+        <h3>You declare</h3>
+        <p>The one thing you want to change. Any industry. Any cause. 400 characters. One systemic need.</p>
+      </div>
+      <div class="how-card">
+        <span class="how-icon">🛡</span>
+        <h3>We check it</h3>
+        <p>AI and human moderation removes personal targeting, hate, and harm. Only systemic, constructive needs make it through.</p>
+      </div>
+      <div class="how-card">
+        <span class="how-icon">🔏</span>
+        <h3>It's signed</h3>
+        <p>SHA-256 hashed. UTC timestamped. Your Declaration Certificate is permanent proof that these words, at this moment, were yours.</p>
+      </div>
+      <div class="how-card">
+        <span class="how-icon">🤝</span>
+        <h3>You're matched</h3>
+        <p>AI groups similar declarations. You're shown who else shares your need — locally and globally. You are not alone.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS BAND ─────────────────────────────────── -->
+<div class="stats-band">
+  <div class="stats-inner">
+    <div><div class="s-num" id="st-countries">147</div><div class="s-lbl">countries represented</div></div>
+    <div><div class="s-num" id="st-voices">0</div><div class="s-lbl">declarations made</div></div>
+    <div><div class="s-num" id="st-doers">0</div><div class="s-lbl">committed to act</div></div>
+    <div><div class="s-num">0 ads</div><div class="s-lbl">ever. this platform is yours.</div></div>
+  </div>
+</div>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="footer-logo">dotheneeds</div>
+  <p class="footer-mission">"Not here to witness the world that needs changing. Here to be the change it needs."</p>
+  <div class="footer-links">
+    <a href="#">About</a><a href="#">Privacy</a><a href="#">Moderation Policy</a>
+    <a href="#">How matching works</a><a href="#">Intellectual Property</a><a href="#">Contact</a>
+  </div>
+  <p class="footer-note">No advertising. No data selling. No algorithms optimising for outrage. Just human needs, declared honestly.</p>
+</footer>
+
+<script>
+// ════════════════════════════════════════════════
+// CONSTANTS
+// ════════════════════════════════════════════════
+const LS_POSTS='dtn_posts_v1', LS_DTS='dtn_dummy_ts';
+const DUMMY_DAYS=7;
+const CONTRIB={
+  build:'Building something',fund:'Funding it',organize:'Organising people',
+  educate:'Teaching & writing',volunteer:'Volunteering time',spread:'Spreading awareness',
+  figuring:'Figuring out how',witness:'Voice only'
+};
+const DOERS=['build','fund','organize','educate','volunteer'];
+const CAT_CSS={
+  'Environment & Climate':'tc-env','Education & Learning':'tc-edu','Health & Wellbeing':'tc-health',
+  'Social Justice & Equity':'tc-equity','Technology & AI':'tc-tech','Local Community':'tc-local',
+  'Economy & Finance':'tc-econ','Food & Agriculture':'tc-food','Science & Research':'tc-sci',
+  'Arts & Culture':'tc-arts','Housing & Urban':'tc-house','Animal Rights':'tc-animal',
+  'Politics & Governance':'tc-pol','Human Rights':'tc-human','Transportation':'tc-local','Other':'tc-other'
+};
+function tier(ct){
+  if(DOERS.includes(ct)) return 'doer';
+  if(ct==='spread') return 'committed';
+  if(ct==='figuring') return 'neutral';
+  return 'voice';
+}
+function fmtN(n){return n>=1000?(n/1000).toFixed(1)+'k':n;}
+const COUNTRIES=["Afghanistan","Albania","Algeria","Argentina","Australia","Austria","Bangladesh","Belgium","Bolivia","Brazil","Cambodia","Canada","Chile","China","Colombia","Croatia","Czech Republic","Denmark","Ecuador","Egypt","Ethiopia","Finland","France","Germany","Ghana","Greece","Guatemala","Haiti","Honduras","Hungary","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Japan","Jordan","Kenya","South Korea","Lebanon","Libya","Malaysia","Mexico","Morocco","Myanmar","Nepal","Netherlands","New Zealand","Nigeria","Norway","Pakistan","Peru","Philippines","Poland","Portugal","Romania","Russia","Saudi Arabia","Senegal","Serbia","Singapore","South Africa","Spain","Sri Lanka","Sweden","Switzerland","Syria","Taiwan","Tanzania","Thailand","Tunisia","Turkey","Uganda","Ukraine","United Kingdom","United States","Uruguay","Venezuela","Vietnam","Zimbabwe","Other"];
+
+// ════════════════════════════════════════════════
+// SEED DATA (65 posts, expires in DUMMY_DAYS)
+// ════════════════════════════════════════════════
+const SEEDS=[
+  {n:"Arjun",a:38,anon:false,o:"India",r:"India",t:"I want my children to inherit a world where clean air is not a luxury. Every city deserves breathable air — not just the ones whose governments can afford to care.",c:"Environment & Climate",ct:"build",cm:"Building a low-cost air quality monitoring network across Chennai.",ts:"2026-01-15T08:22:11Z",id:"DTN-10001",h:"a3f7c2d1e8b9f4c6a2d5",loc:"Chennai, India",av:"a1",m:847,lm:34},
+  {n:"Sara",a:29,anon:false,o:"Kenya",r:"Kenya",t:"I want every child to have access to a curious teacher — not just a curriculum. Curiosity is the real education. Exams measure memory, not minds.",c:"Education & Learning",ct:"volunteer",cm:"Mentoring 5 teachers in rural Kenya on curiosity-led pedagogy monthly.",ts:"2026-01-18T11:05:33Z",id:"DTN-10002",h:"b6e2a9f4c7d3b1e5a8f2",loc:"Nairobi, Kenya",av:"a2",m:512,lm:18},
+  {n:"Anonymous",a:null,anon:true,o:"Germany",r:"Germany",t:"I want us to treat loneliness like the epidemic it is. Billions of people — surrounded by people — utterly alone. We built the internet and forgot to connect.",c:"Health & Wellbeing",ct:"spread",cm:"Running anonymous loneliness circles in Berlin every fortnight.",ts:"2026-01-22T14:40:19Z",id:"DTN-10003",h:"c9d5b1f8a2e6c4d7b3f1",loc:"Germany",av:"a3",m:1240,lm:67},
+  {n:"Priya",a:26,anon:false,o:"India",r:"India",t:"I want women in my country to walk outside after dark without fear. That is the whole need. It is 2026 and this is still considered radical.",c:"Social Justice & Equity",ct:"organize",cm:"Running neighbourhood safety audit programmes across Mumbai.",ts:"2026-01-25T09:15:44Z",id:"DTN-10004",h:"d2f6e0c4b8a7d1e3c9f5",loc:"Mumbai, India",av:"a4",m:3100,lm:112},
+  {n:"Marcus",a:51,anon:false,o:"Nigeria",r:"Nigeria",t:"I want my neighbourhood to have one safe park where children can play. Local government sees us as a box on a map, not people who need space to exist.",c:"Local Community",ct:"organize",cm:"Petitioning Lagos city council for green space funding in our district.",ts:"2026-01-28T16:30:02Z",id:"DTN-10005",h:"e5a3d7f1c9b2e4d6a8f3",loc:"Lagos, Nigeria",av:"a5",m:88,lm:88},
+  {n:"Yemi",a:33,anon:false,o:"Ghana",r:"Ghana",t:"I want AI to close the gap between rich and poor, not widen it. Every breakthrough so far has mostly helped people who already had everything.",c:"Technology & AI",ct:"build",cm:"Building an AI diagnostic tool for rural clinics in West Africa.",ts:"2026-01-31T10:55:28Z",id:"DTN-10006",h:"f1b9c3e7d4a8f2b5c6e0",loc:"Accra, Ghana",av:"a6",m:921,lm:41},
+  {n:"Carlos",a:45,anon:false,o:"Brazil",r:"Brazil",t:"I want the Amazon to stop burning. Every year we light our own lungs on fire for soy and cattle. This is collective suicide dressed as economic progress.",c:"Environment & Climate",ct:"educate",cm:"Writing a book for Brazilian schoolchildren about the Amazon's true value.",ts:"2026-02-02T09:00:00Z",id:"DTN-10007",h:"a8c2e5f3b7d1a4c6e9f0",loc:"Manaus, Brazil",av:"a7",m:1200,lm:55},
+  {n:"Ayesha",a:24,anon:false,o:"Pakistan",r:"Pakistan",t:"I want girls in rural Pakistan to have the same internet access as boys in cities. The digital gender gap is an education death sentence.",c:"Education & Learning",ct:"build",cm:"Building solar-powered community learning hubs in three rural districts.",ts:"2026-02-05T08:00:00Z",id:"DTN-10008",h:"b3f7a1d9c5e2b8f4a6d0",loc:"Lahore, Pakistan",av:"a8",m:834,lm:29},
+  {n:"Tomás",a:47,anon:false,o:"Mexico",r:"Mexico",t:"I want financial literacy to be a mandatory school subject. We teach trigonometry but not how compound interest works against you.",c:"Education & Learning",ct:"educate",cm:"Creating a free Spanish-language financial literacy curriculum for schools.",ts:"2026-02-08T10:00:00Z",id:"DTN-10009",h:"c4d8b2f6a9e1c3d7b5f0",loc:"Mexico City, Mexico",av:"a1",m:1100,lm:38},
+  {n:"James",a:62,anon:false,o:"United Kingdom",r:"United Kingdom",t:"I want the UK to stop treating addiction as a moral failure and start treating it as the public health emergency it is. We criminalise the sick.",c:"Health & Wellbeing",ct:"organize",cm:"Organising a cross-party campaign for harm-reduction policy reform.",ts:"2026-02-11T09:00:00Z",id:"DTN-10010",h:"d6a1e4c8b3f9d2a5e7f0",loc:"Manchester, UK",av:"a2",m:1320,lm:72},
+  {n:"Blessing",a:28,anon:false,o:"Nigeria",r:"Nigeria",t:"I want affordable insulin to be a human right, not a negotiating chip. People are rationing doses and dying in the richest century in human history.",c:"Health & Wellbeing",ct:"organize",cm:"Building a patient advocacy coalition across 6 African nations.",ts:"2026-02-13T14:00:00Z",id:"DTN-10011",h:"e2f5c9a4d1b8e3f6c0a7",loc:"Abuja, Nigeria",av:"a3",m:2300,lm:94},
+  {n:"Astrid",a:34,anon:false,o:"Norway",r:"Norway",t:"I want the world to stop pretending buying an EV is climate action. It is a purchasing decision. Real action is systemic — policy, supply chains, agriculture.",c:"Environment & Climate",ct:"educate",cm:"Publishing accessible policy briefs on industrial decarbonisation.",ts:"2026-02-16T14:00:00Z",id:"DTN-10012",h:"f8b3d6a2c5e9f1b4d7a0",loc:"Oslo, Norway",av:"a4",m:390,lm:15},
+  {n:"Shruti",a:30,anon:false,o:"India",r:"United States",t:"I want AI companies to be legally required to disclose training data. You cannot have accountability without transparency.",c:"Technology & AI",ct:"organize",cm:"Lobbying the US Senate AI committee for mandatory training data disclosure.",ts:"2026-02-18T09:00:00Z",id:"DTN-10013",h:"a5d9b7f3e1c4a6d8b2f0",loc:"San Francisco, USA",av:"a5",m:1340,lm:60},
+  {n:"Isabel",a:43,anon:false,o:"Chile",r:"Chile",t:"I want wealth taxes to be the global norm, not the exception. The top 1% hold more than the bottom 50% combined. That is a policy choice, not a natural law.",c:"Economy & Finance",ct:"educate",cm:"Teaching wealth concentration data in public economics courses.",ts:"2026-02-20T10:00:00Z",id:"DTN-10014",h:"b9f4c2a8e5d1b3f7c6e0",loc:"Santiago, Chile",av:"a6",m:1670,lm:78},
+  {n:"Anonymous",a:null,anon:true,o:"United States",r:"United States",t:"I want the US prison system to be called what it is: a modern form of racial caste. Mass incarceration did not happen by accident. It was designed.",c:"Social Justice & Equity",ct:"witness",cm:"",ts:"2026-02-22T09:00:00Z",id:"DTN-10015",h:"c1e6d4a9b5f2c7e0d3b8",loc:"United States",av:"a7",m:3400,lm:130},
+  {n:"Nadia",a:46,anon:false,o:"Russia",r:"United States",t:"I want all publicly funded research to be open access by law. Taxpayers pay for it. Academic journals paywall it. Researchers at poor institutions cannot read it.",c:"Science & Research",ct:"organize",cm:"Coordinating the global open access petition campaign targeting 20 governments.",ts:"2026-02-24T10:00:00Z",id:"DTN-10016",h:"d3a8f1c5e7b2d4a9f0c6",loc:"Boston, USA",av:"a8",m:2100,lm:88},
+  {n:"Emma",a:24,anon:false,o:"United Kingdom",r:"United Kingdom",t:"I want factory farming to be illegal. We inflict suffering on billions of sentient creatures at industrial scale and call it food production. It is neither necessary nor humane.",c:"Animal Rights",ct:"organize",cm:"Organising a parliamentary campaign for factory farm phase-out legislation.",ts:"2026-02-26T10:00:00Z",id:"DTN-10017",h:"e7b4d2f9a5c1e3b6d8a0",loc:"Bristol, UK",av:"a1",m:1890,lm:83},
+  {n:"Deon",a:40,anon:false,o:"South Africa",r:"South Africa",t:"I want South Africa to reckon with the wealth inequality that apartheid built and democracy preserved. Freedom without economic justice is performance.",c:"Social Justice & Equity",ct:"build",cm:"Building a worker-owned co-operative network in the Cape Flats.",ts:"2026-02-28T11:00:00Z",id:"DTN-10018",h:"f0c6a3e9d2b5f1c4a7e8",loc:"Cape Town, South Africa",av:"a2",m:670,lm:22},
+  {n:"Kenji",a:44,anon:false,o:"Japan",r:"Japan",t:"I want Japan to normalise therapy the way it normalised preventive healthcare. The shame around mental health here is costing lives in silence.",c:"Health & Wellbeing",ct:"educate",cm:"Writing a weekly column in Japanese media normalising therapy-seeking.",ts:"2026-03-01T10:00:00Z",id:"DTN-10019",h:"a2d7f4c9b1e5a3d6f8c0",loc:"Osaka, Japan",av:"a3",m:889,lm:36},
+  {n:"Mariana",a:36,anon:false,o:"Argentina",r:"Argentina",t:"I want femicide to be treated as a national emergency in every Latin American country. A woman is killed every hour in this region. This is not a statistic — it is a massacre.",c:"Social Justice & Equity",ct:"organize",cm:"Coordinating a regional femicide memorial database with legal action support.",ts:"2026-03-03T12:00:00Z",id:"DTN-10020",h:"b8e3c6f1d4a7b2e5c9f0",loc:"Buenos Aires, Argentina",av:"a4",m:2200,lm:95},
+  {n:"Kofi",a:37,anon:false,o:"Ghana",r:"Netherlands",t:"I want remittance fees to be abolished. African families pay up to 8% to send money home. Banks make billions from poverty. This is legalised extraction.",c:"Economy & Finance",ct:"organize",cm:"Coordinating a diaspora campaign to pressure banks on remittance fees.",ts:"2026-03-05T11:00:00Z",id:"DTN-10021",h:"c4f9a2d6e1b5c3f8a7d0",loc:"Amsterdam, Netherlands",av:"a5",m:1120,lm:48},
+  {n:"Aaliya",a:23,anon:false,o:"Bangladesh",r:"United Kingdom",t:"I want the garment industry to pay the women who make our clothes a living wage. A £20 dress should not cost a Dhaka worker her health and her dignity.",c:"Social Justice & Equity",ct:"spread",cm:"Documenting supply chain workers on video and distributing globally.",ts:"2026-03-07T10:00:00Z",id:"DTN-10022",h:"d1e5b9f3c7a2d4e8b6f0",loc:"London, UK",av:"a6",m:1870,lm:79},
+  {n:"Selin",a:31,anon:false,o:"Turkey",r:"Germany",t:"I want press freedom to be treated as a foundation of democracy, not a luxury. Turkey has more journalists in prison than any other country on earth.",c:"Human Rights",ct:"fund",cm:"Funding legal defence for imprisoned journalists through RSF.",ts:"2026-03-09T10:00:00Z",id:"DTN-10023",h:"e8f2c5a9d3b1e6f4c2a0",loc:"Berlin, Germany",av:"a7",m:670,lm:27},
+  {n:"David",a:60,anon:false,o:"United States",r:"United States",t:"I want the US to ratify the UN Convention on the Rights of the Child. We are the only country on earth that has not. That fact alone says everything.",c:"Human Rights",ct:"organize",cm:"Lobbying Congress through a national children's rights coalition.",ts:"2026-03-11T09:00:00Z",id:"DTN-10024",h:"f6a3d8b5e1c9f2a4d7e0",loc:"Washington DC, USA",av:"a8",m:3200,lm:145},
+  {n:"Sofia",a:38,anon:false,o:"Spain",r:"Spain",t:"I want tech platforms to be held to the same standard as publishers. You cannot moderate some content and claim to be a neutral pipe for the rest.",c:"Technology & AI",ct:"educate",cm:"Writing policy briefs on platform liability for Spanish and EU regulators.",ts:"2026-03-13T11:00:00Z",id:"DTN-10025",h:"a7c1f5d2e9b4a8c3f6d0",loc:"Madrid, Spain",av:"a1",m:870,lm:33},
+  {n:"Jin",a:39,anon:false,o:"South Korea",r:"South Korea",t:"I want South Korea to stop treating housing as an investment vehicle. When apartments double in price every decade, cities become museums for the wealthy.",c:"Housing & Urban",ct:"organize",cm:"Organising tenant rights coalitions in Seoul's most unaffordable districts.",ts:"2026-03-15T10:00:00Z",id:"DTN-10026",h:"b5e8f3a1c6d2b4e7a9f0",loc:"Seoul, South Korea",av:"a2",m:1120,lm:52},
+  {n:"Anonymous",a:null,anon:true,o:"South Korea",r:"South Korea",t:"I want South Korea to acknowledge its suicide crisis without shame. We have one of the highest rates in the OECD. The silence is the problem.",c:"Health & Wellbeing",ct:"witness",cm:"",ts:"2026-03-17T08:00:00Z",id:"DTN-10027",h:"c3f6a9e2d5b1c4f7a8e0",loc:"South Korea",av:"a3",m:1680,lm:75},
+  {n:"Chiamaka",a:29,anon:false,o:"Nigeria",r:"Nigeria",t:"I want Nigerian politicians' asset declarations to be public, verified, and machine-readable. Corruption hides in vagueness. Transparency is not a gift — it is a duty.",c:"Politics & Governance",ct:"build",cm:"Building an open data platform for Nigerian public official asset declarations.",ts:"2026-03-19T09:00:00Z",id:"DTN-10028",h:"d2a7f4c8e5b3d1a6f9c0",loc:"Abuja, Nigeria",av:"a4",m:1230,lm:54},
+  {n:"Rosa",a:42,anon:false,o:"Mexico",r:"Mexico",t:"I want ultra-processed food companies to be taxed like tobacco. We have known for decades what these products do to bodies. Profit over public health is a choice.",c:"Food & Agriculture",ct:"organize",cm:"Leading the campaign to expand Mexico's sugar tax to all ultra-processed foods.",ts:"2026-03-21T09:00:00Z",id:"DTN-10029",h:"e9b5f2c4a7d3e1b8f6c0",loc:"Guadalajara, Mexico",av:"a5",m:1340,lm:61},
+  {n:"Fatima",a:35,anon:false,o:"Morocco",r:"France",t:"I want maternal mortality in North Africa to be treated with the same urgency as maternal mortality in Europe. Geography should not determine who survives childbirth.",c:"Health & Wellbeing",ct:"fund",cm:"Funding three midwife training programmes in rural Morocco.",ts:"2026-03-23T11:00:00Z",id:"DTN-10030",h:"f1c6d9a4b2e8f3c5a1d0",loc:"Paris, France",av:"a6",m:456,lm:20},
+  {n:"Ravi",a:41,anon:false,o:"India",r:"United Kingdom",t:"I want fashion brands to publish the true cost — human and environmental — of every garment. Not a sustainability report. A price tag that tells the truth.",c:"Environment & Climate",ct:"build",cm:"Building a browser extension that shows real supply chain data at checkout.",ts:"2026-03-25T12:00:00Z",id:"DTN-10031",h:"a9d4f7c1e5b3a2d8f6c0",loc:"London, UK",av:"a7",m:761,lm:30},
+  {n:"Zainab",a:25,anon:false,o:"Nigeria",r:"Nigeria",t:"I want smallholder farmers in Nigeria to have access to the same crop insurance as industrial farmers. Climate risk falls hardest on those with least cushion.",c:"Food & Agriculture",ct:"build",cm:"Piloting a mobile-based parametric crop insurance product for smallholders.",ts:"2026-03-27T10:00:00Z",id:"DTN-10032",h:"b7e1c4f9a6d2b5e8c3f0",loc:"Kano, Nigeria",av:"a8",m:380,lm:17},
+  {n:"Kristina",a:41,anon:false,o:"Sweden",r:"Sweden",t:"I want youth quotas in every parliament. The median age of a world leader is 62. The median age of the planet is 31. The decision-makers do not live with the consequences.",c:"Politics & Governance",ct:"organize",cm:"Leading the Nordic Youth in Parliament coalition campaign.",ts:"2026-03-29T11:00:00Z",id:"DTN-10033",h:"c5f2a8d1e4b7c3f9a6d0",loc:"Stockholm, Sweden",av:"a1",m:1450,lm:65},
+  {n:"Viktor",a:55,anon:false,o:"Ukraine",r:"Poland",t:"I want cybersecurity to be treated as a human right. When a government can shut down your internet, they can shut down your democracy.",c:"Technology & AI",ct:"fund",cm:"Funding mesh network infrastructure for three vulnerable civil society groups.",ts:"2026-03-31T09:00:00Z",id:"DTN-10034",h:"d8b3e6f1a4c9d2b7e5f0",loc:"Warsaw, Poland",av:"a2",m:430,lm:19},
+  {n:"Amara",a:22,anon:false,o:"Nigeria",r:"Nigeria",t:"I want textbooks in Africa to reflect African history, science, and philosophy — not just European perspectives. We are not footnotes in our own story.",c:"Education & Learning",ct:"build",cm:"Co-authoring a pan-African history curriculum with 20 historians.",ts:"2026-04-02T11:00:00Z",id:"DTN-10035",h:"e4a7c2f8b5d1e3a9c6f0",loc:"Lagos, Nigeria",av:"a3",m:1560,lm:70},
+  {n:"Léa",a:28,anon:false,o:"France",r:"France",t:"I want arts education to be protected from every austerity cut. Every time a government slashes music or theatre programmes, it tells children that beauty is optional.",c:"Arts & Culture",ct:"fund",cm:"Funding a free after-school arts programme for 200 Parisian children.",ts:"2026-04-04T09:00:00Z",id:"DTN-10036",h:"f6c1d5a2e9b4f3c8a5d0",loc:"Paris, France",av:"a4",m:430,lm:18},
+  {n:"Elijah",a:48,anon:false,o:"Kenya",r:"Kenya",t:"I want African nations to stop paying debt to institutions that profited from colonialism. Debt relief must come with historical reckoning.",c:"Economy & Finance",ct:"educate",cm:"Writing a publicly accessible analysis of Kenya's colonial debt lineage.",ts:"2026-04-06T10:00:00Z",id:"DTN-10037",h:"a3f8b6d4c1e7a2f5b9d0",loc:"Nairobi, Kenya",av:"a5",m:1450,lm:64},
+  {n:"Hiroshi",a:49,anon:false,o:"Japan",r:"Japan",t:"I want Japan to extend full legal equality to LGBTQ+ people. In 2026, same-sex marriage is still not recognised here. This is not tradition — it is exclusion.",c:"Social Justice & Equity",ct:"organize",cm:"Coordinating the national same-sex marriage parliamentary petition.",ts:"2026-04-07T13:00:00Z",id:"DTN-10038",h:"b9d3a7f2c6e4b1d8f5a0",loc:"Tokyo, Japan",av:"a6",m:1120,lm:49},
+  {n:"Aiko",a:29,anon:false,o:"Japan",r:"Japan",t:"I want Japan to close its gender pay gap. Women earn 23% less than men here. The explanation given is 'career choices.' The real explanation is systemic devaluation.",c:"Economy & Finance",ct:"organize",cm:"Building a women's salary transparency database for Japanese workplaces.",ts:"2026-04-07T14:00:00Z",id:"DTN-10039",h:"c6e1b4f9a2d7c3e8b5f0",loc:"Tokyo, Japan",av:"a7",m:890,lm:40},
+  {n:"Abena",a:26,anon:false,o:"Ghana",r:"Ghana",t:"I want African developers to be at the table when AI that affects Africa is designed. Not as users. As architects.",c:"Technology & AI",ct:"organize",cm:"Running a competitive scholarship for African AI engineers to attend global conferences.",ts:"2026-04-07T15:00:00Z",id:"DTN-10040",h:"d4f8c2a9e5b3d6f1c7a0",loc:"Kumasi, Ghana",av:"a8",m:690,lm:31},
+  {n:"Pete",a:63,anon:false,o:"Australia",r:"Australia",t:"I want climate science communication to be funded at the same level as climate denial. We are in an asymmetric information war and truth is losing.",c:"Science & Research",ct:"educate",cm:"Training 100 scientists annually in media and public communication.",ts:"2026-04-08T10:00:00Z",id:"DTN-10041",h:"e2a6d3f7b1c8e4a5d9f0",loc:"Sydney, Australia",av:"a1",m:780,lm:35},
+  {n:"André",a:50,anon:false,o:"France",r:"France",t:"I want compulsory voting in every democracy. A government elected by 40% of citizens does not have a mandate. Abstention is not neutrality — it is abdication.",c:"Politics & Governance",ct:"educate",cm:"Publishing accessible comparative research on compulsory voting outcomes.",ts:"2026-04-08T11:00:00Z",id:"DTN-10042",h:"f7b5e9c3a1d6f4b2e8a0",loc:"Paris, France",av:"a2",m:890,lm:40},
+  {n:"Derek",a:44,anon:false,o:"United States",r:"Canada",t:"I want deep fake technology to be regulated before it destroys the concept of evidence. We are close to a world where no video can be trusted.",c:"Technology & AI",ct:"build",cm:"Building an open-source deep fake detection tool for newsrooms.",ts:"2026-04-08T12:00:00Z",id:"DTN-10043",h:"a1d4f8b6c3e9a2d5f7c0",loc:"Vancouver, Canada",av:"a3",m:1560,lm:70},
+  {n:"Nomsa",a:34,anon:false,o:"Zimbabwe",r:"South Africa",t:"I want African women to have equal land rights. 60% of the food on this continent is grown by women who legally cannot own the land they farm.",c:"Social Justice & Equity",ct:"educate",cm:"Training 200 rural women annually on their legal land rights.",ts:"2026-04-08T13:00:00Z",id:"DTN-10044",h:"b8e5c1f4a7d3b9e2c6f0",loc:"Johannesburg, South Africa",av:"a4",m:540,lm:24},
+  {n:"Thomas",a:53,anon:false,o:"France",r:"France",t:"I want food waste to be a criminal offence for large retailers, not a voluntary initiative. 1.3 billion tonnes wasted annually while millions go hungry.",c:"Food & Agriculture",ct:"educate",cm:"Training food system students in waste quantification and policy advocacy.",ts:"2026-04-08T14:00:00Z",id:"DTN-10045",h:"c6f2a8d4e1b5c3f9a7d0",loc:"Lyon, France",av:"a5",m:670,lm:30},
+  {n:"Elan",a:27,anon:false,o:"Israel",r:"Germany",t:"I want the world to stop treating refugee status as temporary. Millions live in permanent impermanence. That is not a solution — it is a waiting room with no exit.",c:"Human Rights",ct:"fund",cm:"Funding legal aid for refugee families facing deportation in Germany.",ts:"2026-04-08T15:00:00Z",id:"DTN-10046",h:"d3b9f5c2a6e8d1b4f7a0",loc:"Berlin, Germany",av:"a6",m:780,lm:35},
+  {n:"Anya",a:32,anon:false,o:"India",r:"India",t:"I want neglected tropical diseases to receive the same R&D investment as lifestyle diseases. Dengue and river blindness affect hundreds of millions and get almost nothing.",c:"Science & Research",ct:"fund",cm:"Fundraising for a neglected tropical diseases research fellowship at AIIMS Delhi.",ts:"2026-04-08T16:00:00Z",id:"DTN-10047",h:"e5a2f8b3d6c9e4a7f1b0",loc:"Delhi, India",av:"a7",m:340,lm:15},
+  {n:"Ingrid",a:58,anon:false,o:"Sweden",r:"Sweden",t:"I want Sweden to export its forest management model. We replant five trees for every one cut. This knowledge should be global, not national.",c:"Environment & Climate",ct:"educate",cm:"Translating Swedish forestry manuals into 12 languages for free distribution.",ts:"2026-04-08T17:00:00Z",id:"DTN-10048",h:"f9c4d1a6e3b8f2c5d7a0",loc:"Stockholm, Sweden",av:"a8",m:289,lm:12},
+  {n:"Anonymous",a:null,anon:true,o:"Philippines",r:"Philippines",t:"I want dynastic politics in the Philippines to be constitutionally banned. We have families in power for 50 years. That is not democracy — it is branding.",c:"Politics & Governance",ct:"witness",cm:"",ts:"2026-04-08T18:00:00Z",id:"DTN-10049",h:"a4e7b2f5c9d1a3e6b8f0",loc:"Philippines",av:"a1",m:1780,lm:80},
+  {n:"Amani",a:27,anon:false,o:"Sudan",r:"Ethiopia",t:"I want the humanitarian crisis in Sudan to receive the same media coverage as crises elsewhere. Attention is not evenly distributed. That imbalance costs lives.",c:"Human Rights",ct:"spread",cm:"Translating and amplifying Sudanese journalist reports into English daily.",ts:"2026-04-08T19:00:00Z",id:"DTN-10050",h:"b6f3c8a1d5e9b4f2c7a0",loc:"Addis Ababa, Ethiopia",av:"a2",m:560,lm:25},
+  {n:"Adaeze",a:30,anon:false,o:"Nigeria",r:"United Kingdom",t:"I want social housing to be treated as infrastructure, not charity. A city that cannot house its workers is not a functioning city.",c:"Housing & Urban",ct:"educate",cm:"Advocating for social housing inclusion in UK planning reform legislation.",ts:"2026-04-08T20:00:00Z",id:"DTN-10051",h:"c9a5e2f7b4d1c6e3a8f0",loc:"London, UK",av:"a3",m:780,lm:35},
+  {n:"Obi",a:36,anon:false,o:"Nigeria",r:"United Kingdom",t:"I want African artists to receive royalties when their culture is commodified by global brands. Inspiration without compensation is extraction.",c:"Arts & Culture",ct:"build",cm:"Building a legal framework and registry for African cultural intellectual property rights.",ts:"2026-04-08T21:00:00Z",id:"DTN-10052",h:"d2b7f4a9c5e1d3b6f8a0",loc:"London, UK",av:"a4",m:670,lm:30},
+  {n:"Preethi",a:38,anon:false,o:"India",r:"Singapore",t:"I want coding to be taught in every school the way reading was introduced — as fundamental literacy for this century, not an optional elective.",c:"Education & Learning",ct:"volunteer",cm:"Volunteering to teach basic coding in two Singapore primary schools every week.",ts:"2026-04-08T22:00:00Z",id:"DTN-10053",h:"e8c3a6f2d9b1e5c4a7f0",loc:"Singapore",av:"a5",m:780,lm:35},
+  {n:"Kwame",a:52,anon:false,o:"Ghana",r:"Ghana",t:"I want African nations to be compensated for the climate damage caused by industrialised countries. We polluted least. We suffer most. That is not fair.",c:"Environment & Climate",ct:"organize",cm:"Coordinating an Africa-wide climate reparations advocacy coalition.",ts:"2026-04-08T23:00:00Z",id:"DTN-10054",h:"f1d5b9c4a2e7f3d8b6a0",loc:"Accra, Ghana",av:"a6",m:678,lm:28},
+  {n:"Anonymous",a:null,anon:true,o:"Iran",r:"Canada",t:"I want the international community to hold Iran accountable for killing protesters. Silence in the face of this is not neutrality. It is complicity.",c:"Human Rights",ct:"spread",cm:"Documenting cases and sharing testimony on international platforms.",ts:"2026-04-09T00:00:00Z",id:"DTN-10055",h:"a9e4c7f2b5d1a3e8c6f0",loc:"Canada",av:"a7",m:1890,lm:85},
+  {n:"Lars",a:55,anon:false,o:"Denmark",r:"Denmark",t:"I want mental health education in every school by age ten. Children know how to calculate percentages. They do not know how to name what they are feeling.",c:"Education & Learning",ct:"fund",cm:"Donating to fund a mental health curriculum for 50 Danish schools.",ts:"2026-04-09T01:00:00Z",id:"DTN-10056",h:"b4f8d2a6c1e5b3f9d7a0",loc:"Copenhagen, Denmark",av:"a8",m:670,lm:30},
+  {n:"Camille",a:31,anon:false,o:"France",r:"Canada",t:"I want eating disorders to receive the same insurance coverage and clinical priority as cancer. They have the highest mortality of any psychiatric illness.",c:"Health & Wellbeing",ct:"educate",cm:"Campaigning to change insurance legislation in Ontario for eating disorder coverage.",ts:"2026-04-09T02:00:00Z",id:"DTN-10057",h:"c6a1e4f7b9d3c5a2e8f0",loc:"Toronto, Canada",av:"a1",m:890,lm:40},
+  {n:"Fiona",a:26,anon:false,o:"Ireland",r:"Ireland",t:"I want peatland restoration to be as celebrated as renewable energy. Bogs are carbon sinks older than civilisation and we have drained 80% of them.",c:"Environment & Climate",ct:"volunteer",cm:"Volunteering with a peatland restoration project every weekend.",ts:"2026-04-09T03:00:00Z",id:"DTN-10058",h:"d8b5f3c9a4e2d7b1f6a0",loc:"Galway, Ireland",av:"a2",m:183,lm:9},
+  {n:"Paulo",a:33,anon:false,o:"Brazil",r:"United States",t:"I want corporations to face criminal prosecution for environmental destruction, not just fines. Fines are the cost of doing business. Accountability requires teeth.",c:"Environment & Climate",ct:"organize",cm:"Co-founding an international environmental legal defence fund.",ts:"2026-04-09T04:00:00Z",id:"DTN-10059",h:"e3c7a1f5b8d4e2c9a6f0",loc:"New York, USA",av:"a3",m:944,lm:42},
+  {n:"Anonymous",a:null,anon:true,o:"United States",r:"United States",t:"I want universities to stop profiting from student debt. Education should be an investment in society, not a revenue stream for endowments.",c:"Education & Learning",ct:"witness",cm:"",ts:"2026-04-09T05:00:00Z",id:"DTN-10060",h:"f5d9b2e6c4a8f1d3b7a0",loc:"United States",av:"a4",m:2100,lm:95},
+  {n:"Anonymous",a:null,anon:true,o:"United States",r:"United States",t:"I want a universal basic income pilot in every G20 nation. The evidence base is there. The political will is not. That gap is a moral failure.",c:"Economy & Finance",ct:"spread",cm:"Sharing UBI research with every elected official I can reach.",ts:"2026-04-09T06:00:00Z",id:"DTN-10061",h:"a7e2f6c4b9d1a5e3f8c0",loc:"United States",av:"a5",m:2340,lm:105},
+  {n:"Mei Lin",a:35,anon:false,o:"Taiwan",r:"Taiwan",t:"I want the world to stop treating Taiwan's democracy as a geopolitical inconvenience. 24 million free people should not live in diplomatic limbo.",c:"Human Rights",ct:"educate",cm:"Writing accessible English-language content on Taiwan's democratic history.",ts:"2026-04-09T07:00:00Z",id:"DTN-10062",h:"b3f7a4d9c6e2b1f5a8d0",loc:"Taipei, Taiwan",av:"a6",m:780,lm:35},
+  {n:"Yuki",a:31,anon:false,o:"Japan",r:"Japan",t:"I want Japan's education system to teach children how to fail and try again. Right now failure is treated as permanent. That fear is destroying innovation.",c:"Education & Learning",ct:"build",cm:"Building a school programme around iterative failure and design thinking.",ts:"2026-04-09T07:30:00Z",id:"DTN-10063",h:"c9d4a8f2e5b3c1d7f6a0",loc:"Tokyo, Japan",av:"a7",m:390,lm:17},
+  {n:"Mei",a:29,anon:false,o:"China",r:"China",t:"I want China's rivers to run clean again. My grandmother swam in the Yangtze. My children cannot even touch it. We traded rivers for GDP.",c:"Environment & Climate",ct:"organize",cm:"Organising river clean-up coalitions across three provinces.",ts:"2026-04-09T08:00:00Z",id:"DTN-10064",h:"d6f1b5e9c3a7d2f4b8a0",loc:"Chengdu, China",av:"a8",m:412,lm:18},
+  {n:"Anonymous",a:null,anon:true,o:"United States",r:"United States",t:"I want zoning laws that ban multi-family housing in American cities to be repealed. We built inequality into the land and called the map 'heritage.'",c:"Housing & Urban",ct:"witness",cm:"",ts:"2026-04-09T08:30:00Z",id:"DTN-10065",h:"e4a9c2f7b6d3e1a5f9c0",loc:"United States",av:"a1",m:1670,lm:75},
+];
+
+// ════════════════════════════════════════════════
+// DATA LAYER
+// ════════════════════════════════════════════════
+function loadPosts(){
+  let real=[];
+  try{real=JSON.parse(localStorage.getItem(LS_POSTS)||'[]');}catch(e){}
+  if(!localStorage.getItem(LS_DTS)) localStorage.setItem(LS_DTS,Date.now().toString());
+  const age=(Date.now()-parseInt(localStorage.getItem(LS_DTS)))/(864e5);
+  const dummies=age<DUMMY_DAYS ? SEEDS.map(d=>({...d,name:d.n,age:d.a,origin:d.o,residence:d.r,text:d.t,cat:d.c,contributionType:d.ct,contribution:d.cm,hash:d.h,matches:d.m,localMatches:d.lm,dummy:true,updates:[]})) : [];
+  return [...dummies,...real];
+}
+function savePost(p){
+  let r=[];
+  try{r=JSON.parse(localStorage.getItem(LS_POSTS)||'[]');}catch(e){}
+  r.push(p); localStorage.setItem(LS_POSTS,JSON.stringify(r));
+}
+function saveUpdate(id,txt){
+  let r=[];
+  try{r=JSON.parse(localStorage.getItem(LS_POSTS)||'[]');}catch(e){}
+  const p=r.find(x=>x.id===id);
+  if(p){if(!p.updates)p.updates=[];p.updates.push({text:txt,ts:new Date().toISOString()});}
+  localStorage.setItem(LS_POSTS,JSON.stringify(r));
+}
+
+// ════════════════════════════════════════════════
+// MODERATION
+// ════════════════════════════════════════════════
+const HARD_RULES=[
+  {re:/\b(kill|murder|eliminate|bomb|shoot|stab|attack)\b.{0,40}(he|she|they|him|her|them|[A-Z][a-z]+)/i,msg:"This declaration appears to call for harm against a specific person. The platform is for systemic change only."},
+  {re:/\b(kill|murder|harm|attack)\s+(all|every|those)\b/i,msg:"Calls to harm groups cannot be posted. Focus on the change you want to create, not the harm you want to cause."},
+  {re:/\b(n[i1]gg[ae]r|f[a4]gg[o0]t|ch[i1]nk|sp[i1]c|k[i1]ke)\b/i,msg:"Slurs or hate speech were detected. All voices are welcome here — but not at the expense of others' dignity."},
+  {re:/@[a-zA-Z0-9_]+|https?:\/\//i,msg:"Personal handles and external links aren't allowed. Keep it about the idea."},
+];
+const SOFT_RULES=[
+  {re:/\b(corrupt|criminal|liar|thief)\b.{0,30}[A-Z][a-z]+\s[A-Z][a-z]+/,msg:"Your declaration names a specific person with strong accusations. Consider focusing on the systemic issue — a stronger and safer declaration."},
+  {re:/\b(stupid|idiots|morons|pathetic)\b/i,msg:"Some language may read as attacking people rather than ideas. A small rewording could make your declaration more powerful."},
+];
+function moderate(txt){
+  for(const r of HARD_RULES) if(r.re.test(txt)) return{level:'hard',msg:r.msg};
+  for(const r of SOFT_RULES) if(r.re.test(txt)) return{level:'soft',msg:r.msg};
+  return{level:'clear'};
+}
+
+// ════════════════════════════════════════════════
+// AUTO-CATEGORY
+// ════════════════════════════════════════════════
+function autocat(t,m){
+  if(m) return m;
+  const s=t.toLowerCase();
+  if(/climate|pollution|carbon|ocean|forest|renewable|planet|peatland|river/.test(s)) return'Environment & Climate';
+  if(/school|teacher|curriculum|learning|university|literacy|education|student/.test(s)) return'Education & Learning';
+  if(/health|mental|loneliness|hospital|medicine|insulin|eating disorder|addiction|suicide/.test(s)) return'Health & Wellbeing';
+  if(/ai|artificial intelligence|tech|algorithm|digital|deepfake|automation|platform|software/.test(s)) return'Technology & AI';
+  if(/wage|poverty|income|economic|financial|tax|inequality|wealth|remittance|debt/.test(s)) return'Economy & Finance';
+  if(/women|gender|race|equality|justice|discrimination|femicide|lgbtq/.test(s)) return'Social Justice & Equity';
+  if(/government|politics|election|democracy|corrupt|vote|parliament|dynast/.test(s)) return'Politics & Governance';
+  if(/science|research|discovery|open access|neglected|clinical|r&d/.test(s)) return'Science & Research';
+  if(/art|music|culture|creative|film|literature|artist|heritage/.test(s)) return'Arts & Culture';
+  if(/neighborhood|local|community|city|street|park|town/.test(s)) return'Local Community';
+  if(/animal|wildlife|factory farm|vegan|cruelty|species/.test(s)) return'Animal Rights';
+  if(/food|farming|agriculture|hunger|nutrition|smallholder|crop|waste/.test(s)) return'Food & Agriculture';
+  if(/housing|home|rent|homeless|affordable|shelter|zoning/.test(s)) return'Housing & Urban';
+  if(/transport|commute|traffic|road|bus|train/.test(s)) return'Transportation';
+  if(/human rights|torture|freedom|refugee|press|journalist|war/.test(s)) return'Human Rights';
+  return'Other';
+}
+
+// ════════════════════════════════════════════════
+// SHA-256
+// ════════════════════════════════════════════════
+async function sha256(msg){
+  const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+function genId(){return'DTN-'+Math.floor(Math.random()*900000+100000);}
+
+// ════════════════════════════════════════════════
+// FORM
+// ════════════════════════════════════════════════
+let selType=null,curPost=null,wallTab='all',catFilter='All';
+
+function onTextInput(el){
+  document.getElementById('cc').textContent=el.value.length;
+  if(el.value.length>20){
+    const r=moderate(el.value);
+    const hd=document.getElementById('mod-hard'),sf=document.getElementById('mod-soft');
+    hd.style.display='none';sf.style.display='none';
+    if(r.level==='hard'){document.getElementById('mod-hard-msg').textContent=r.msg;hd.style.display='block';}
+    else if(r.level==='soft'){document.getElementById('mod-soft-msg').textContent=r.msg;sf.style.display='block';}
+    // Re-evaluate button: needs T&C + no hard block
+    const tncOk = document.getElementById('chk-tnc').checked;
+    document.getElementById('btn-next').disabled = r.level==='hard' || !tncOk;
+  }
+}
+
+function toStep2(){
+  const name=document.getElementById('fname').value.trim();
+  const text=document.getElementById('ftext').value.trim();
+  const tncOk=document.getElementById('chk-tnc').checked;
+  if(!name){hilite('fname');return;}
+  if(!text){hilite('ftext');return;}
+  if(!tncOk){
+    document.getElementById('tnc-warn').classList.add('show');
+    document.getElementById('chk-tnc').closest('.tnc-block').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const r=moderate(text);
+  if(r.level==='hard') return;
+  document.getElementById('s1').style.display='none';
+  document.getElementById('s2').style.display='block';
+  setStp(2);
+  document.getElementById('declare').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function toStep1(){
+  document.getElementById('s2').style.display='none';
+  document.getElementById('s1').style.display='block';
+  setStp(1);
+}
+function setStp(n){
+  ['sd1','sd2','sd3'].forEach((id,i)=>{
+    const d=document.getElementById(id);
+    d.className='step-dot '+(i+1<n?'done':i+1===n?'active':'idle');
+  });
+  document.getElementById('sl1').className='step-line'+(n>1?' done':'');
+  document.getElementById('sl2').className='step-line'+(n>2?' done':'');
+}
+function pickContrib(el,type,tier){
+  selType=type;
+  document.querySelectorAll('.cb-opt').forEach(b=>{b.classList.remove('sel','sel-voice');});
+  el.classList.add(tier==='voice'?'sel-voice':'sel');
+  document.getElementById('commit-wrap').style.display=['build','fund','organize','educate','volunteer'].includes(type)?'flex':'none';
+  const btn=document.getElementById('btn-submit');
+  btn.disabled=false;
+  const isVoice=tier==='voice';
+  document.getElementById('btn-submit-text').textContent=isVoice?'Post my declaration as a voice →':'Post my declaration + commitment →';
+}
+function hilite(id){const e=document.getElementById(id);e.style.borderColor='var(--terra)';e.focus();setTimeout(()=>e.style.borderColor='',2000);}
+
+async function submit(){
+  const name=document.getElementById('fname').value.trim();
+  const age=document.getElementById('fage').value.trim();
+  const text=document.getElementById('ftext').value.trim();
+  const action=document.getElementById('faction').value.trim();
+  const anon=document.getElementById('chk-anon').checked;
+  const live=document.getElementById('flive').value;
+  const orig=document.getElementById('forig').value;
+  const manCat=document.getElementById('findustry').value;
+  const commit=document.getElementById('fcommit').value.trim();
+  const btn=document.getElementById('btn-submit');
+  const sp=document.getElementById('spin');
+  btn.disabled=true;sp.style.display='inline-block';
+  document.getElementById('btn-submit-text').textContent='Signing your declaration…';
+  await new Promise(r=>setTimeout(r,1200));
+  const ts=new Date().toISOString();
+  const id=genId();
+  const cat=autocat(text,manCat);
+  const hash=await sha256(`${text}|${ts}|${id}|${name}`);
+  const t=tier(selType||'witness');
+  // action = "I will..." field from Step 1; commit = type-specific sentence from Step 2
+  const moveText = action || commit || '';
+  const post={name,age:age||null,anon,origin:orig,residence:live,text,cat,
+    contributionType:selType||'witness',contribution:moveText,action:moveText,
+    cm:moveText,ts,id,hash,loc:live||(anon?'Location hidden':'Unknown'),
+    matches:0,localMatches:0,dummy:false,fresh:true,yours:true,updates:[]};
+  curPost=post; savePost(post);
+  // Show cert
+  setStp(3);
+  document.getElementById('s2').style.display='none';
+  document.getElementById('cert-view').style.display='block';
+  document.getElementById('c-text').textContent='"'+text+'"';
+  document.getElementById('c-name').textContent=anon?'Anonymous':(name+(age?', '+age:''));
+  document.getElementById('c-cat').textContent=cat;
+  document.getElementById('c-ts').textContent=ts;
+  document.getElementById('c-id').textContent=id;
+  document.getElementById('c-hash').textContent=hash;
+  const cml=moveText||(selType==='witness'?'Voice only — no specific move declared.':'No move declared yet.');
+  document.getElementById('c-commit').textContent=cml;
+  const bEl=document.getElementById('cert-badge-el');
+  const bTier=tier(selType||'witness');
+  const bLabel=bTier==='doer'?'✦ Doer — committed to action':bTier==='committed'?'◆ Committed — spreading the word':bTier==='neutral'?'◇ Figuring it out':'○ Voice — declared honestly';
+  bEl.className='cert-badge '+(bTier==='doer'?'doer':'voice');
+  bEl.textContent=bLabel;
+  updateStats();
+}
+
+function goToWall(){ showVoices(); }
+
+function showHome(){
+  document.getElementById('home-sec') && (document.getElementById('home-sec').style.display='');
+  // show home, hide voices
+  const homeSec = document.querySelector('section.wall-section');
+  document.getElementById('voices-section').style.display='none';
+  // scroll to top of page
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showVoices(){
+  document.getElementById('voices-section').style.display='block';
+  // scroll voices section into view
+  document.getElementById('voices-section').scrollIntoView({behavior:'smooth',block:'start'});
+  renderVoicesTab();
+  renderMovementsTab();
+  updateStats();
+}
+
+// ════════════════════════════════════════════════
+// RETURN USER
+// ════════════════════════════════════════════════
+function toggleReturn(){
+  const p=document.getElementById('return-panel');
+  p.style.display=p.style.display==='block'?'none':'block';
+  if(p.style.display==='block') p.scrollIntoView({behavior:'smooth'});
+}
+function findReturn(){
+  const name=(document.getElementById('r-name').value||'').trim().toLowerCase();
+  const age=document.getElementById('r-age').value.trim();
+  const orig=document.getElementById('r-orig').value;
+  const live=document.getElementById('r-live').value;
+  let real=[];try{real=JSON.parse(localStorage.getItem(LS_POSTS)||'[]');}catch(e){}
+  const m=real.find(p=>p.name.toLowerCase()===name&&(!age||String(p.age)===age)&&(!orig||p.origin===orig)&&(!live||p.residence===live));
+  const fd=document.getElementById('return-found');fd.style.display='block';
+  if(m){
+    fd.innerHTML=`
+      <p style="font-weight:500;color:var(--brown);margin-bottom:.45rem;">Found your declaration from ${new Date(m.ts).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}.</p>
+      <p style="font-style:italic;margin-bottom:.8rem;font-size:.84rem;color:var(--brown3);">"${m.text.substring(0,120)}…"</p>
+      <div class="fg"><label>What has happened since? Add to your story.</label>
+      <textarea id="update-txt" style="min-height:80px;" placeholder="Update your commitment, share progress, be honest about what changed…"></textarea></div>
+      <div class="tnc-block" style="margin-top:.6rem;">
+        <label style="display:flex;align-items:flex-start;gap:.7rem;cursor:pointer;" for="chk-tnc-upd">
+          <input type="checkbox" id="chk-tnc-upd" style="width:15px;height:15px;flex-shrink:0;accent-color:var(--terra);margin-top:3px;">
+          <div class="tnc-label">
+            <strong>I confirm this update is honest and I accept the Terms of Service</strong>
+            I agree this update is truthful and complies with the <a href="/terms" target="_blank">Terms of Service</a>,
+            <a href="/privacy" target="_blank">Privacy Policy</a>, and <a href="/community" target="_blank">Community Standards</a>
+            of DoTheNeeds, operated by <strong>EXADreams LLC</strong>.
+          </div>
+        </label>
+      </div>
+      <button class="btn-main" style="margin-top:.5rem" onclick="postUpdate('${m.id}')">Add to my story →</button>`;
+  } else {
+    fd.innerHTML=`<p style="color:var(--brown3);font-style:italic;font-size:.85rem;">No declaration found with those details. Check the name and age exactly as you originally entered them.</p>`;
+  }
+}
+function postUpdate(id){
+  const tncUpd = document.getElementById('chk-tnc-upd');
+  if(tncUpd && !tncUpd.checked){
+    tncUpd.closest('.tnc-block').style.borderColor='var(--terra)';
+    tncUpd.closest('.tnc-block').scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const t=(document.getElementById('update-txt').value||'').trim();
+  if(!t) return;
+  saveUpdate(id,t);
+  document.getElementById('return-found').innerHTML=`<p style="color:var(--doer);font-weight:500;">Update added to your story. ✓</p><p style="font-size:.78rem;color:var(--brown4);font-style:italic;margin-top:.3rem;">Your update is timestamped and linked to your original declaration.</p>`;
+  renderVoicesTab();
+}
+
+// ════════════════════════════════════════════════
+// T&C LOGIC
+// ════════════════════════════════════════════════
+function onTncChange(){
+  const checked = document.getElementById('chk-tnc').checked;
+  const btn = document.getElementById('btn-next');
+  const warn = document.getElementById('tnc-warn');
+  // Button enables only when T&C accepted AND no hard mod flag
+  const hardBlocked = document.getElementById('mod-hard').style.display === 'block';
+  btn.disabled = !checked || hardBlocked;
+  warn.classList.toggle('show', false);
+}
+
+// ════════════════════════════════════════════════
+// FOUNDER'S VOICE
+// ════════════════════════════════════════════════
+function openFounderVoice(){
+  document.getElementById('fv-overlay').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeFounderVoice(){
+  document.getElementById('fv-overlay').classList.add('hidden');
+  document.body.style.overflow='';
+}
+function closeFVIfOutside(e){
+  if(e.target===document.getElementById('fv-overlay')) closeFounderVoice();
+}
+
+// ════════════════════════════════════════════════
+// VOICES TAB STATE
+// ════════════════════════════════════════════════
+let activeVTab='voices', sfMode='trending', catFilter='All', voicesSearchQ='', mvmtSearchQ='', mvmtSort='voices';
+
+function switchVoicesTab(tab){
+  activeVTab=tab;
+  document.getElementById('vt-voices').classList.toggle('on', tab==='voices');
+  document.getElementById('vt-mvmt').classList.toggle('on', tab==='mvmt');
+  document.getElementById('tab-voices-content').style.display = tab==='voices' ? '' : 'none';
+  document.getElementById('tab-mvmt-content').style.display  = tab==='mvmt'   ? '' : 'none';
+}
+
+function onVoicesSearch(q){
+  voicesSearchQ = q.trim();
+  if(activeVTab==='voices') renderVoicesTab();
+  else filterMovements(q);
+}
+
+function setSmartFilter(mode, el){
+  sfMode=mode;
+  document.querySelectorAll('.sf-btn').forEach(b=>b.classList.remove('on','on-qw','on-fb','on-gl'));
+  const cls = mode==='quickwins'?'on-qw':mode==='factbased'?'on-fb':mode==='global'?'on-gl':'on';
+  el.classList.add(cls);
+  renderVoicesTab();
+}
+
+function setCat(c){ catFilter=c; renderChips(); renderVoicesTab(); }
+
+// Quick-win: local/community/achievable signals
+function isQuickWin(p){
+  const txt=(p.text+' '+(p.cm||p.contribution||'')).toLowerCase();
+  return /\b(local|community|school|workplace|neighbourhood|neighborhood|city|town|weekly|monthly|today|tomorrow|volunteer|conversation|one step|simple|small)\b/.test(txt)||p.cat==='Local Community';
+}
+// Fact-based: contains stats or numbers
+function isFactBased(p){
+  return /\d+\s*%|\d+\s*(million|billion|thousand|\bk\b)|1\.3\b|23%|60%|80%|40%|8%/.test(p.text);
+}
+// Highly global: broad match count
+function isGlobal(p){ return (p.matches||0)>=600; }
+
+function renderChips(){
+  const posts=loadPosts();
+  const cats=['All',...new Set(posts.map(p=>p.cat))];
+  const counts={};posts.forEach(p=>{counts[p.cat]=(counts[p.cat]||0)+1;});
+  document.getElementById('cat-chips').innerHTML=cats.map(c=>`
+    <div class="chip${c===catFilter?' on':''}" onclick="setCat('${c}')">${c}${c!=='All'?` <span style="opacity:.52;font-size:.7rem">${counts[c]}</span>`:''}</div>`).join('');
+}
+
+function hlSearch(txt, q){
+  if(!q) return txt;
+  const re=new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`,'gi');
+  return txt.replace(re,'<mark style="background:rgba(201,125,58,.28);border-radius:3px;padding:0 1px;">$1</mark>');
+}
+
+function renderVoicesTab(){
+  let posts=loadPosts();
+  const q=voicesSearchQ;
+
+  // Apply search
+  if(q){
+    const ql=q.toLowerCase();
+    posts=posts.filter(p=>
+      (p.text||'').toLowerCase().includes(ql)||
+      (p.cm||p.contribution||p.action||'').toLowerCase().includes(ql)||
+      (p.cat||'').toLowerCase().includes(ql)||
+      (p.loc||'').toLowerCase().includes(ql)||
+      (!p.anon&&(p.name||'').toLowerCase().includes(ql))
+    );
+    document.getElementById('vh-srch-cnt').textContent=posts.length+' found';
+  } else {
+    document.getElementById('vh-srch-cnt').textContent='';
+  }
+
+  // Category filter
+  if(catFilter!=='All') posts=posts.filter(p=>p.cat===catFilter);
+
+  // Smart filter
+  switch(sfMode){
+    case 'trending':  posts.sort((a,b)=>(b.matches||0)-(a.matches||0)); break;
+    case 'quickwins': posts=posts.filter(isQuickWin).sort((a,b)=>(b.matches||0)-(a.matches||0)); break;
+    case 'factbased': posts=posts.filter(isFactBased).sort((a,b)=>(b.matches||0)-(a.matches||0)); break;
+    case 'global':    posts=posts.filter(isGlobal).sort((a,b)=>(b.matches||0)-(a.matches||0)); break;
+    case 'recent':    posts.sort((a,b)=>new Date(b.ts)-new Date(a.ts)); break;
+  }
+
+  document.getElementById('vtc-voices').textContent=posts.length;
+
+  const avs=['a1','a2','a3','a4','a5','a6','a7','a8'];
+  if(!posts.length){
+    document.getElementById('wall-grid').innerHTML='<div class="no-results" style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--brown4);font-style:italic;">No declarations match this filter. Try another.</div>';
+    return;
+  }
+
+  document.getElementById('wall-grid').innerHTML=posts.map((p,i)=>{
+    const t=tier(p.contributionType||'witness');
+    const bCls=t==='doer'?'doer':t==='committed'?'committed':'voice';
+    const bTxt=t==='doer'?'🛠 Doer':t==='committed'?'📢 Committed':t==='neutral'?'💭 Figuring it out':'👁 Voice';
+    // Support both old field name (cm/contribution) and new (action)
+    const actionText = p.cm || p.contribution || p.action || '';
+    const cm = actionText ? `<div class="card-commit"><span class="cc-pfx">My move</span>${hlSearch(actionText,q)}</div>` : '';
+    const upd=(p.updates||[]).map(u=>`<div class="card-update"><span class="u-date">${new Date(u.ts).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</span>${u.text}</div>`).join('');
+    const localTxt=(p.lm||p.localMatches||0)>0?`<span class="match-pill local">↯ ${fmtN(p.lm||p.localMatches)} in region</span>`:'';
+    const globalTxt=(p.matches||0)>0?`<span class="match-pill global">◎ ${fmtN(p.matches)} globally</span>`:'';
+    const isYours = p.fresh||p.yours;
+    return`<div class="card${isYours?' is-fresh':''}" style="animation:fadeUp .4s ${Math.min(i*.04,.5)}s ease both">
+      ${isYours?'<span class="fresh-badge">Your declaration</span>':''}
+      ${(p.updates||[]).length?'<span class="update-badge">🔄 Story updated</span>':''}
+      <span class="card-cat ${CAT_CSS[p.cat]||'tc-other'}">${p.cat}</span>
+      <p class="card-text">"${hlSearch(p.text,q)}"</p>
+      ${cm}${upd}
+      <div class="match-row">${localTxt}${globalTxt}</div>
+      <div class="card-footer">
+        <div class="person">
+          <div class="av ${p.av||avs[i%8]}">${p.anon?'?':p.name[0]}</div>
+          <div>
+            <span class="pname">${p.anon?'Anonymous':p.name}${p.age&&!p.anon?', '+p.age:''}</span>
+            <span class="ploc">${p.anon?'Location hidden':p.loc}</span>
+          </div>
+        </div>
+        <span class="card-badge ${bCls}">${bTxt}</span>
+      </div>
+      <div class="cert-sig">🔏 ${p.ts} · ${p.id} · ${String(p.hash).substring(0,20)}…</div>
+    </div>`;
+  }).join('');
+}
+
+// ════════════════════════════════════════════════
+// MOVEMENTS TAB
+// ════════════════════════════════════════════════
+function setMvmtSort(s, el){
+  mvmtSort=s;
+  document.querySelectorAll('.mvmt-sort-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  renderMovementsTab();
+}
+
+function filterMovements(q){
+  mvmtSearchQ=q.trim();
+  renderMovementsTab();
+}
+
+function renderMovementsTab(){
+  const posts=loadPosts();
+
+  // Build clusters by category
+  const clusters={};
+  posts.forEach(p=>{
+    if(!clusters[p.cat]) clusters[p.cat]={cat:p.cat,posts:[],totalMatches:0,doers:0,recent:0};
+    clusters[p.cat].posts.push(p);
+    clusters[p.cat].totalMatches += (p.matches||0);
+    if(tier(p.contributionType)==='doer') clusters[p.cat].doers++;
+    // count posts in last 30 days as "recent"
+    if(new Date(p.ts)>new Date(Date.now()-30*864e5)) clusters[p.cat].recent++;
+  });
+
+  let mvmts = Object.values(clusters);
+
+  // Sort
+  if(mvmtSort==='voices')     mvmts.sort((a,b)=>b.posts.length-a.posts.length);
+  else if(mvmtSort==='doers') mvmts.sort((a,b)=>b.doers-a.doers);
+  else if(mvmtSort==='alpha') mvmts.sort((a,b)=>a.cat.localeCompare(b.cat));
+
+  document.getElementById('vtc-mvmt').textContent=mvmts.length;
+
+  const q=(mvmtSearchQ||'').toLowerCase();
+
+  document.getElementById('mvmt-grid').innerHTML=mvmts.map((mv,i)=>{
+    // Search filter: hide if search term doesn't match category or any post text
+    const searchHit = !q || mv.cat.toLowerCase().includes(q) ||
+      mv.posts.some(p=>(p.text||'').toLowerCase().includes(q)||(p.cm||p.contribution||p.action||'').toLowerCase().includes(q));
+
+    const doerPct = mv.posts.length ? Math.round(mv.doers/mv.posts.length*100) : 0;
+
+    // trend label
+    const isHot     = mv.posts.length >= 6;
+    const isRising  = mv.posts.length >= 3 && mv.posts.length < 6;
+    const trendTxt  = isHot ? '🔥 Hot' : isRising ? '↑ Rising' : '· Active';
+    const trendCls  = isHot ? 'hot' : isRising ? 'up' : '';
+
+    // top 3 snippets by match count
+    const topPosts = [...mv.posts].sort((a,b)=>(b.matches||0)-(a.matches||0)).slice(0,3);
+
+    return`<div class="mvmt-card${searchHit?'':' hidden'}" style="animation:fadeUp .4s ${Math.min(i*.05,.55)}s ease both"
+        onclick="exploreMovement('${mv.cat}')">
+      <div class="mc-head">
+        <div class="mc-top">
+          <span class="mc-cat-tag ${CAT_CSS[mv.cat]||'tc-other'}">${mv.cat}</span>
+          <span class="mc-trend ${trendCls}">${trendTxt}</span>
+        </div>
+        <div class="mc-title">${fmtN(mv.posts.length)} ${mv.posts.length===1?'voice has':'voices have'} declared change in <em>${mv.cat}</em></div>
+        <div class="mc-meta">
+          <div><span class="mc-voices-n">${fmtN(mv.posts.length)}</span><br><span class="mc-voices-l">voices</span></div>
+          <div class="mc-doer-wrap">
+            <div class="mc-doer-lbl-row"><span>${doerPct}% committed to act</span><span>${mv.doers} doers</span></div>
+            <div class="mc-doer-track"><div class="mc-doer-fill" style="width:${doerPct}%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="mc-snips">
+        ${topPosts.map(p=>`<div class="mc-snip">${p.text.length>115?p.text.substring(0,115)+'…':p.text}</div>`).join('')}
+      </div>
+      <div class="mc-foot">
+        <span class="mc-doers-lbl">${mv.doers} ${mv.doers===1?'person':'people'} committed to act</span>
+        <span class="mc-explore-lbl">Explore voices →</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function exploreMovement(cat){
+  catFilter=cat;
+  sfMode='trending';
+  switchVoicesTab('voices');
+  renderChips();
+  renderVoicesTab();
+  document.getElementById('tab-voices-content').scrollIntoView({behavior:'smooth'});
+}
+
+// ════════════════════════════════════════════════
+// TRENDING (home page section)
+// ════════════════════════════════════════════════
+function initWall(){ renderTrending(); updateStats(); }
+
+function renderTrending(){
+  const posts=loadPosts();
+  const counts={};
+  posts.forEach(p=>{counts[p.cat]=(counts[p.cat]||0)+1;});
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const mx=sorted[0]?.[1]||1;
+  const tg=document.getElementById('trend-grid');
+  if(!tg) return;
+  tg.innerHTML=sorted.map(([cat,n])=>`
+    <div class="trend-card" onclick="showVoicesInCat('${cat}')">
+      <span class="card-cat ${CAT_CSS[cat]||'tc-other'} t-cat-tag">${cat}</span>
+      <div class="t-title">${cat}</div>
+      <div class="t-bar-row">
+        <div class="t-bar-bg"><div class="t-bar-fill" style="width:0" data-p="${Math.round(n/mx*100)}"></div></div>
+        <div class="t-count">${fmtN(n)} voices</div>
+      </div>
+    </div>`).join('');
+  setTimeout(()=>document.querySelectorAll('.t-bar-fill').forEach(b=>{b.style.transition='width 1.2s ease';b.style.width=b.dataset.p+'%';}),150);
+}
+
+function showVoicesInCat(cat){
+  catFilter=cat; sfMode='trending';
+  showVoices();
+  renderChips(); renderVoicesTab();
+}
+
+function updateStats(){
+  const posts=loadPosts();
+  const doers=posts.filter(p=>tier(p.contributionType)==='doer').length;
+  const countries=new Set(posts.map(p=>p.residence).filter(Boolean)).size;
+  const pct=posts.length?Math.round(doers/posts.length*100):0;
+  // Voices section stats
+  const setEl=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  setEl('ws-total',  fmtN(posts.length));
+  setEl('ws-doers',  fmtN(doers));
+  setEl('ws-countries', countries);
+  setEl('st-voices', fmtN(posts.length));
+  setEl('st-doers',  fmtN(doers));
+  setEl('st-countries', countries);
+  const df=document.getElementById('doer-fill'); if(df) df.style.width=pct+'%';
+  setEl('doer-pct-lbl', `${pct}% committed to action (${fmtN(doers)} Doers)`);
+}
+
+// ════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════
+function populateSel(){
+  ['forig','flive','r-orig','r-live'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    COUNTRIES.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;el.appendChild(o);});
+  });
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  populateSel();
+  initWall();
+  renderChips();
+  // If URL hash says #voices, open voices section directly
+  if(window.location.hash==='#voices') showVoices();
+  // Show Founder's Voice on first visit (after 1.8 seconds)
+  if(!sessionStorage.getItem('fv_seen')){
+    setTimeout(()=>{
+      openFounderVoice();
+      sessionStorage.setItem('fv_seen','1');
+    },1800);
+  }
+  // Escape key closes modal
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape') closeFounderVoice();
+  });
+});
+</script>
+<script src="/api.js"></script>
+</body>
+</html>
